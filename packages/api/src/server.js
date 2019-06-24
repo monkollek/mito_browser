@@ -7,7 +7,7 @@ import cors from 'cors'
 import Redis from 'ioredis'
 import serveStatic from 'serve-static'
 
-import gnomadSchema from './schema'
+import pcgcSchema from './pcgc_schema'
 
 const app = express()
 app.use(compression())
@@ -41,7 +41,7 @@ app.use(cors())
     app.use(
       [/^\/$/, /^\/api\/?$/],
       graphQLHTTP({
-        schema: gnomadSchema,
+        schema: pcgcSchema,
         graphiql: true,
         context: {
           database: {
