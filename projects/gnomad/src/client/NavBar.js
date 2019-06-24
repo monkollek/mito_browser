@@ -116,7 +116,7 @@ class NavBar extends Component {
         <NavBarWrapper>
           <LogoWrapper>
             <Link to="/" onClick={this.closeMenu}>
-              <Logo>gnomAD browser</Logo>
+              <Logo>PCGC browser</Logo>
             </Link>
             <ToggleMenuButton onClick={this.toggleMenu}>☰</ToggleMenuButton>
           </LogoWrapper>
@@ -127,11 +127,11 @@ class NavBar extends Component {
                 About
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/downloads" onClick={this.closeMenu}>
                 Downloads
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/terms" onClick={this.closeMenu}>
                 Terms
@@ -142,11 +142,11 @@ class NavBar extends Component {
                 Contact
               </Link>
             </li>
-            <li>
+            {/* <li>
               <a href="https://macarthurlab.org/jobs/" rel="noopener noreferrer" target="_blank">
                 Jobs
               </a>
-            </li>
+            </li> */}
             <li>
               <Link to="/faq" onClick={this.closeMenuIfOpen}>
                 FAQ
@@ -154,12 +154,12 @@ class NavBar extends Component {
             </li>
           </Menu>
         </NavBarWrapper>
-        <Notice>
+        {/* <Notice>
           This is a new version of the gnomAD browser. The old version is available at{' '}
           <a href="http://gnomad-old.broadinstitute.org" rel="noopener noreferrer" target="_blank">
             http://gnomad-old.broadinstitute.org
           </a>
-        </Notice>
+        </Notice> */}
       </OuterWrapper>
     )
   }

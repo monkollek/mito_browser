@@ -217,7 +217,7 @@ class GenePage extends Component {
           regions={regionViewerRegions}
           rightPanelWidth={smallScreen ? 0 : 160}
         >
-          {datasetId === 'gnomad_sv_r2' ? (
+          {/*datasetId === 'gnomad_sv_r2' ? (
             <RegionCoverageTrack
               chrom={gene.chrom}
               datasetId={datasetId}
@@ -233,7 +233,7 @@ class GenePage extends Component {
                 showExomeCoverage={datasetId !== 'gnomad_sv_r2'}
               />
             )
-          )}
+          )*/}
 
           <ControlPanel marginLeft={100} width={regionViewerWidth - 100 - (smallScreen ? 0 : 160)}>
             Include:
@@ -322,16 +322,16 @@ class GenePage extends Component {
             </StatusMessage>
           )}
 
-          {hasCodingExons && (
+          {/* hasCodingExons && (
             <TissueExpressionTrack exons={cdsCompositeExons} expressionRegions={gene.pext} />
-          )}
+          )*/}
 
-          {gene.exac_regional_missense_constraint_regions.length > 0 && datasetId === 'exac' && (
+          {/* gene.exac_regional_missense_constraint_regions.length > 0 && datasetId === 'exac' && (
             <RegionalConstraintTrack
               height={15}
               regions={gene.exac_regional_missense_constraint_regions}
             />
-          )}
+          ) */}
 
           {datasetId === 'gnomad_sv_r2' ? (
             <StructuralVariantsInGene gene={gene} width={regionViewerWidth} />

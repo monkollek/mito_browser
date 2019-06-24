@@ -180,7 +180,7 @@ class VariantsInGene extends Component {
 
     return (
       <div>
-        <ClinVarTrack variants={clinVarVariants} variantFilter={filter.includeCategories} />
+        {/*<ClinVarTrack variants={clinVarVariants} variantFilter={filter.includeCategories} />*/}
 
         <VariantTrack
           title={`${datasetLabel}\n(${renderedVariants.length})`}
