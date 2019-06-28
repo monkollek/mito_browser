@@ -129,44 +129,22 @@ export const GnomadVariantOccurrenceTable = ({ variant }) => {
         <tr>
           <td />
           <th scope="col">Exomes</th>
-          <th scope="col">Genomes</th>
-          <th scope="col">Total</th>
         </tr>
         <tr>
           <th scope="row">Filter</th>
           <td>{renderGnomadVariantFlag(variant, 'exome')}</td>
-          <td>{renderGnomadVariantFlag(variant, 'genome')}</td>
-          <td />
         </tr>
         <tr>
           <th scope="row">Allele Count</th>
           <td>{isPresentInExome && exomeAlleleCount}</td>
-          <td>{isPresentInGenome && genomeAlleleCount}</td>
-          <td>{totalAlleleCount}</td>
         </tr>
         <tr>
           <th scope="row">Allele Number</th>
           <td>{isPresentInExome && exomeAlleleNumber}</td>
-          <td>{isPresentInGenome && genomeAlleleNumber}</td>
-          <td>{totalAlleleNumber}</td>
         </tr>
         <tr>
           <th scope="row">Allele Frequency</th>
           <td>{isPresentInExome && exomeAlleleFrequency.toPrecision(4)}</td>
-          <td>{isPresentInGenome && genomeAlleleFrequency.toPrecision(4)}</td>
-          <td>{totalAlleleFrequency.toPrecision(4)}</td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <NoWrap>
-              Popmax Filtering AF <QuestionMark topic="faf" />
-            </NoWrap>
-            <br />
-            (95% confidence)
-          </th>
-          <td>{isPresentInExome && <FilteringAlleleFrequency {...variant.exome.faf95} />}</td>
-          <td>{isPresentInGenome && <FilteringAlleleFrequency {...variant.genome.faf95} />}</td>
-          <td />
         </tr>
       </tbody>
     </Table>
@@ -193,3 +171,28 @@ GnomadVariantOccurrenceTable.propTypes = {
     }),
   }).isRequired,
 }
+
+/* <Table>
+      <tbody>
+        <tr>
+          <td />
+          <th scope="col">Exomes</th>
+        </tr>
+        <tr>
+          <th scope="row">Filter</th>
+          <td>{renderGnomadVariantFlag(variant, 'exome')}</td>
+        </tr>
+        <tr>
+          <th scope="row">Allele Count</th>
+          <td>{isPresentInExome && exomeAlleleCount}</td>
+        </tr>
+        <tr>
+          <th scope="row">Allele Number</th>
+          <td>{isPresentInExome && exomeAlleleNumber}</td>
+        </tr>
+        <tr>
+          <th scope="row">Allele Frequency</th>
+          <td>{isPresentInExome && exomeAlleleFrequency.toPrecision(4)}</td>
+        </tr>
+      </tbody>
+    </Table> */

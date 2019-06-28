@@ -41,7 +41,9 @@ import {
 import { StructuralVariantSummaryType } from './structuralVariant'
 */
 
-//import { VariantSummaryType } from './variant'
+import { VariantSummaryType } from './variant'
+
+import fetchVariantsByGene from '../datasets/fetchVariantsByGene'
 
 const geneType = new GraphQLObjectType({
   name: 'Gene',
@@ -110,23 +112,27 @@ const geneType = new GraphQLObjectType({
       resolve: async (obj, args, ctx) => fetchGnomadStructuralVariantsByGene(ctx, obj),
     },
     */
-    /*
+    
     variants: {
       type: new GraphQLList(VariantSummaryType),
       args: {
-        dataset: { type: datasetArgumentTypeForMethod('fetchVariantsByGene') },
+        //dataset: { type: datasetArgumentTypeForMethod('fetchVariantsByGene') },
         transcriptId: { type: GraphQLString },
       },
       resolve: (obj, args, ctx) => {
+
+        /*
         if (args.transcriptId) {
           const fetchVariantsByTranscript = datasetsConfig[args.dataset].fetchVariantsByTranscript
           return fetchVariantsByTranscript(ctx, args.transcriptId, obj)
         }
+        */
 
-        const fetchVariantsByGene = datasetsConfig[args.dataset].fetchVariantsByGene
+        console.log(obj.gene_id)
+        //const fetchVariantsByGene = datasetsConfig[args.dataset].fetchVariantsByGene
         return fetchVariantsByGene(ctx, obj.gene_id, obj.canonical_transcript)
       },
-    },*/
+    },
   }),
 })
 

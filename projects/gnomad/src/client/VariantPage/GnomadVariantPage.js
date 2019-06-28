@@ -100,7 +100,7 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
                 <GnomadVariantOccurrenceTable variant={variant} />
               </ScrollWrapper>
 
-              {variant.colocatedVariants.length > 0 && (
+              {/*variant.colocatedVariants.length > 0 && (
                 <div>
                   <p>
                     <strong>This variant is multiallelic. Other alt alleles are:</strong>
@@ -113,7 +113,7 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
                     ))}
                   </ul>
                 </div>
-              )}
+              )*/}
 
               {variant.multiNucleotideVariants.length > 0 && (
                 <div>
@@ -129,8 +129,8 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
             <ResponsiveSection>
               <h2>References</h2>
               <ReferenceList variant={variant} />
-              <h2>Report</h2>
-              <VariantFeedback datasetId={datasetId} variantId={variantId} />
+              {/*<h2>Report</h2>
+              <VariantFeedback datasetId={datasetId} variantId={variantId} />*/}
             </ResponsiveSection>
             <Section>
               <h2>Annotations</h2>
@@ -143,7 +143,7 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
                 sortedTranscriptConsequences={variant.sortedTranscriptConsequences}
               />
             </Section>
-            <ResponsiveSection>
+            {/*<ResponsiveSection>
               <h2>Population Frequencies</h2>
               <ScrollWrapper>
                 <GnomadPopulationsTable
@@ -152,8 +152,8 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
                   showHemizygotes={variant.chrom === 'X' || variant.chrom === 'Y'}
                 />
               </ScrollWrapper>
-            </ResponsiveSection>
-            <ResponsiveSection>
+            </ResponsiveSection>*/}
+            {/*<ResponsiveSection>
               <h2>Age Distribution</h2>
               {datasetId !== 'gnomad_r2_1' && (
                 <p>
@@ -178,7 +178,7 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
                 igvLocus={`${variant.chrom}:${variant.pos - 40}-${variant.pos + 40}`}
                 showHemizygotes={variant.chrom === 'X' || variant.chrom === 'Y'}
               />
-            </Section>
+            </Section>*/}
           </VariantDetailsContainer>
         )
       }}

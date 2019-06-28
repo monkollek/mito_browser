@@ -12,6 +12,8 @@ export async function fetchAllSearchResults(esClient, searchParams) {
   const size = searchParams.size || 1000
   const scroll = searchParams.scroll || '30s'
 
+  //console.log(searchParams)
+
   responseQueue.push(
     await esClient.search({
       ...searchParams,
@@ -23,6 +25,8 @@ export async function fetchAllSearchResults(esClient, searchParams) {
   while (responseQueue.length) {
     const response = responseQueue.shift()
     allResults = allResults.concat(response.hits.hits)
+
+    //console.log(response)
 
     if (allResults.length === response.hits.total) {
       // eslint-disable-next-line no-await-in-loop
