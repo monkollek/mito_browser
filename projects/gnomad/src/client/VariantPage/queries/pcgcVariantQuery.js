@@ -38,6 +38,7 @@ query PcgcVariant($variantId: String!) {
   }
 }
 `
+
 /*
 export default `
 query PcgcVariant($variantId: String!, $datasetId: DatasetsSupportingFetchVariantDetails!) {
@@ -53,6 +54,12 @@ query PcgcVariant($variantId: String!, $datasetId: DatasetsSupportingFetchVarian
         ac
         an
         ac_hom
+        populations {
+          id
+          ac
+          an
+        }
+
       }
       sortedTranscriptConsequences {
         canonical

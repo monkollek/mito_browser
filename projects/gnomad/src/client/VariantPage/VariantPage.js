@@ -6,7 +6,7 @@ import { isVariantId, normalizeVariantId } from '@broad/utilities'
 
 import DocumentTitle from '../DocumentTitle'
 import StructuralVariantPage from '../StructuralVariantPage/StructuralVariantPage'
-import GnomadVariantPage from './GnomadVariantPage'
+import PcgcVariantPage from './PcgcVariantPage'
 import MNVPage from './MultiNucleotideVariant/MNVPage'
 
 const VariantPage = ({ datasetId, variantId, ...otherProps }) => {
@@ -36,7 +36,7 @@ const VariantPage = ({ datasetId, variantId, ...otherProps }) => {
     return <MNVPage {...otherProps} datasetId={datasetId} variantId={normalizedVariantId} />
   }
 
-  return <GnomadVariantPage {...otherProps} datasetId={datasetId} variantId={normalizedVariantId} />
+  return <PcgcVariantPage {...otherProps} datasetId={datasetId} variantId={normalizedVariantId} />
 }
 
 VariantPage.propTypes = {
