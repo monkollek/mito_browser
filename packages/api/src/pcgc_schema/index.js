@@ -30,15 +30,17 @@ import transcriptType, {
   lookupTranscriptsByTranscriptId,
 } from './types/transcript'
 
-/*
-import regionType from './types/region'
 
-import { SearchResultType, resolveSearchResults } from './types/search'
+//import regionType from './types/region'
+
+//import { SearchResultType, resolveSearchResults } from './types/search'
 import { VariantInterface } from './types/variant'
 
-import { datasetArgumentTypeForMethod } from './datasets/datasetArgumentTypes'
-import datasetsConfig, { datasetSpecificTypes } from './datasets/datasetsConfig'
-*/
+//import { datasetArgumentTypeForMethod } from './datasets/datasetArgumentTypes'
+//import datasetsConfig, { datasetSpecificTypes } from './datasets/datasetsConfig'
+
+import fetchVariantDetails from './datasets/fetchVariantDetails'
+import VariantDetailsType from './datasets/VariantDetailsType'
 
 const rootType = new GraphQLObjectType({
   name: 'Root',
@@ -127,26 +129,27 @@ The fields below allow for different ways to look up PCGC data. Click on the the
       resolve: (obj, args, ctx) => fetchGnomadStructuralVariantDetails(ctx, args.variantId),
     },
     */
-    /*
+    
     variant: {
       description: 'Look up a single variant or rsid. Example: 1-55516888-G-GA.',
       type: VariantInterface,
       args: {
-        dataset: { type: datasetArgumentTypeForMethod('fetchVariantDetails') },
+        // dataset: { type: datasetArgumentTypeForMethod('fetchVariantDetails') },
         variantId: { type: GraphQLString },
       },
       resolve: (obj, args, ctx) => {
-        const { dataset, variantId } = args
-        const fetchVariantDetails = datasetsConfig[dataset].fetchVariantDetails
-        return fetchVariantDetails(ctx, variantId)
+        //const { dataset, variantId } = args
+        //const fetchVariantDetails = datasetsConfig[dataset].fetchVariantDetails
+        return fetchVariantDetails(ctx, args.variantId)
       },
     },
-    */
+    
   }),
 })
 
 const Schema = new GraphQLSchema({
   query: rootType,
+  types: [VariantDetailsType],
   //types: datasetSpecificTypes,
 })
 

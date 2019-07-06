@@ -5,10 +5,11 @@ import { Query } from '../Query'
 
 import exacVariantQuery from './queries/exacVariantQuery'
 import gnomadVariantQuery from './queries/gnomadVariantQuery'
+import pcgcVariantQuery from './queries/pcgcVariantQuery'
 
 export const VariantDetailsQuery = ({ children, datasetId, variantId }) => (
   <Query
-    query={gnomadVariantQuery}
+    query={pcgcVariantQuery}
     variables={{ datasetId, variantId }}
   >
     {children}

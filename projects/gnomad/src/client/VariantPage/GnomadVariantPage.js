@@ -92,6 +92,8 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
         const numTranscripts = variant.sortedTranscriptConsequences.length
         const geneIds = variant.sortedTranscriptConsequences.map(csq => csq.gene_id)
         const numGenes = new Set(geneIds).size
+        console.log("Ih here 2")
+        console.log(variant)
 
         return (
           <VariantDetailsContainer>
@@ -115,7 +117,7 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
                 </div>
               )*/}
 
-              {variant.multiNucleotideVariants.length > 0 && (
+              {/*variant.multiNucleotideVariants.length > 0 && (
                 <div>
                   <p>
                     <strong>
@@ -124,7 +126,7 @@ const GnomadVariantPage = ({ datasetId, variantId }) => (
                   </p>
                   <MNVSummaryList multiNucleotideVariants={variant.multiNucleotideVariants} />
                 </div>
-              )}
+              )*/}
             </ResponsiveSection>
             <ResponsiveSection>
               <h2>References</h2>

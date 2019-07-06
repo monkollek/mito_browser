@@ -108,20 +108,20 @@ FilteringAlleleFrequency.defaultProps = {
 
 export const GnomadVariantOccurrenceTable = ({ variant }) => {
   const isPresentInExome = Boolean(variant.exome)
-  const isPresentInGenome = Boolean(variant.genome)
+ //const isPresentInGenome = Boolean(variant.genome)
 
   const exomeAlleleCount = isPresentInExome ? variant.exome.ac : 0
   const exomeAlleleNumber = isPresentInExome ? variant.exome.an : 0
-  const genomeAlleleCount = isPresentInGenome ? variant.genome.ac : 0
-  const genomeAlleleNumber = isPresentInGenome ? variant.genome.an : 0
+  //const genomeAlleleCount = isPresentInGenome ? variant.genome.ac : 0
+  //const genomeAlleleNumber = isPresentInGenome ? variant.genome.an : 0
 
   const exomeAlleleFrequency = exomeAlleleNumber === 0 ? 0 : exomeAlleleCount / exomeAlleleNumber
-  const genomeAlleleFrequency =
-    genomeAlleleNumber === 0 ? 0 : genomeAlleleCount / genomeAlleleNumber
+  //const genomeAlleleFrequency =
+  //  genomeAlleleNumber === 0 ? 0 : genomeAlleleCount / genomeAlleleNumber
 
-  const totalAlleleCount = exomeAlleleCount + genomeAlleleCount
-  const totalAlleleNumber = exomeAlleleNumber + genomeAlleleNumber
-  const totalAlleleFrequency = totalAlleleNumber === 0 ? 0 : totalAlleleCount / totalAlleleNumber
+  //const totalAlleleCount = exomeAlleleCount + genomeAlleleCount
+  //const totalAlleleNumber = exomeAlleleNumber + genomeAlleleNumber
+  //const totalAlleleFrequency = totalAlleleNumber === 0 ? 0 : totalAlleleCount / totalAlleleNumber
 
   return (
     <Table>
@@ -130,10 +130,10 @@ export const GnomadVariantOccurrenceTable = ({ variant }) => {
           <td />
           <th scope="col">Exomes</th>
         </tr>
-        <tr>
+        {/*<tr>
           <th scope="row">Filter</th>
           <td>{renderGnomadVariantFlag(variant, 'exome')}</td>
-        </tr>
+        </tr>*/}
         <tr>
           <th scope="row">Allele Count</th>
           <td>{isPresentInExome && exomeAlleleCount}</td>
@@ -156,11 +156,12 @@ GnomadVariantOccurrenceTable.propTypes = {
     exome: PropTypes.shape({
       ac: PropTypes.number.isRequired,
       an: PropTypes.number.isRequired,
-      faf95: PropTypes.shape({
+      /*faf95: PropTypes.shape({
         popmax: PropTypes.number,
         popmax_population: PropTypes.string,
-      }).isRequired,
+      }).isRequired,*/
     }),
+    /*
     genome: PropTypes.shape({
       ac: PropTypes.number.isRequired,
       an: PropTypes.number.isRequired,
@@ -168,7 +169,7 @@ GnomadVariantOccurrenceTable.propTypes = {
         popmax: PropTypes.number,
         popmax_population: PropTypes.string,
       }).isRequired,
-    }),
+    }),*/
   }).isRequired,
 }
 

@@ -8,7 +8,8 @@ cd $PROJECT_DIR
 export PATH=$PATH:$PROJECT_DIR/../../node_modules/.bin
 
 export NODE_ENV="development"
-export GNOMAD_API_URL=${GNOMAD_API_URL:-"https://gnomad.broadinstitute.org/api"}
+#export GNOMAD_API_URL=${GNOMAD_API_URL:-"https://gnomad.broadinstitute.org/api"}
+export GNOMAD_API_URL=${GNOMAD_API_URL:-"http://172.23.117.23:8007"}
 
 WEBPACK_DEV_SERVER_ARGS=""
 #if [ "$LOGNAME" = "vagrant" ]; then
