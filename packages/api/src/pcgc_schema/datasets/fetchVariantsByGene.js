@@ -115,6 +115,9 @@ const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) =
         'sortedTranscriptConsequences',
         'variant_id',
         'xpos',
+        'AC',
+        'AN',
+        'AF',
       ],
       body: {
         query : {

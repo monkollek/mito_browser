@@ -169,6 +169,9 @@ class GenePage extends Component {
         (exon.feature_type === 'UTR' && includeUTRs) ||
         (exon.feature_type === 'exon' && includeNonCodingTranscripts)
     )
+    
+    console.log(gene)
+    console.log(compositeExons)
 
     const regionViewerRegions =
       datasetId === 'gnomad_sv_r2'
@@ -198,7 +201,7 @@ class GenePage extends Component {
           </GnomadPageHeading>
           <GeneInfoColumnWrapper>
             <GeneInfo currentTranscript={transcriptId || gene.canonical_transcript} gene={gene} />
-            <div>
+            {/* <div>
               <h2>
                 Gene Constraint <QuestionMark topic="gene-constraint" />
               </h2>
@@ -207,7 +210,7 @@ class GenePage extends Component {
                 gene={gene}
                 selectedTranscriptId={transcriptId || gene.canonical_transcript}
               />
-            </div>
+            </div> */} 
           </GeneInfoColumnWrapper>
         </TrackPageSection>
         <RegionViewer
@@ -216,7 +219,7 @@ class GenePage extends Component {
           padding={75}
           regions={regionViewerRegions}
           rightPanelWidth={smallScreen ? 0 : 160}
-        >
+        > 
           {/*datasetId === 'gnomad_sv_r2' ? (
             <RegionCoverageTrack
               chrom={gene.chrom}
@@ -294,7 +297,7 @@ class GenePage extends Component {
             </Legend>
           </ControlPanel>
 
-          {hasCodingExons && (
+          {/*hasCodingExons && (
             <ConnectedTranscriptsTrack
               showUTRs={includeUTRs}
               showNonCodingTranscripts={includeNonCodingTranscripts}
@@ -314,7 +317,7 @@ class GenePage extends Component {
                     )
               }
             />
-          )}
+          ) */}
 
           {!hasCodingExons && (
             <StatusMessage>

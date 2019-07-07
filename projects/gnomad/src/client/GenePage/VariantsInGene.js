@@ -21,7 +21,7 @@ import ClinVarTrack from './ClinVarTrack'
 
 class VariantsInGene extends Component {
   static propTypes = {
-    clinVarVariants: PropTypes.arrayOf(PropTypes.object).isRequired,
+    //clinVarVariants: PropTypes.arrayOf(PropTypes.object).isRequired,
     datasetId: PropTypes.string.isRequired,
     gene: PropTypes.shape({
       chrom: PropTypes.string.isRequired,
@@ -57,13 +57,16 @@ class VariantsInGene extends Component {
     const defaultSortKey = 'variant_id'
     const defaultSortOrder = 'ascending'
 
-    const renderedVariants = sortVariants(
+/*    const renderedVariants = sortVariants(
       mergeExomeAndGenomeData(filterVariants(props.variants, defaultFilter)),
       {
         sortKey: defaultSortKey,
         sortOrder: defaultSortOrder,
       }
     )
+*/
+    const renderedVariants = mergeExomeAndGenomeData(props.variants)
+
 
     this.state = {
       filter: defaultFilter,
@@ -75,13 +78,22 @@ class VariantsInGene extends Component {
       visibleVariantWindow: [0, 19],
     }
   }
-
+  /*
   getColumns = memoizeOne((width, chrom, datasetId) =>
     getColumns({
       datasetId,
       width,
       includeHomozygoteAC: chrom !== 'Y',
       includeHemizygoteAC: chrom === 'X' || chrom === 'Y',
+    })
+  )
+  */
+
+  getColumns = memoizeOne((width, chrom) =>
+    getColumns({
+      width,
+      includeHomozygoteAC: false,
+      includeHemizygoteAC: false,
     })
   )
 
@@ -165,7 +177,9 @@ class VariantsInGene extends Component {
   }
 
   render() {
-    const { clinVarVariants, datasetId, gene, transcriptId, width } = this.props
+    //const { clinVarVariants, datasetId, gene, transcriptId, width } = this.props
+    const { datasetId, gene, transcriptId, width } = this.props
+
     const {
       filter,
       hoveredVariant,
@@ -182,33 +196,33 @@ class VariantsInGene extends Component {
       <div>
         {/*<ClinVarTrack variants={clinVarVariants} variantFilter={filter.includeCategories} />*/}
 
-        <VariantTrack
+        {/* <VariantTrack
           title={`${datasetLabel}\n(${renderedVariants.length})`}
           variants={renderedVariants}
-        />
-        <NavigatorTrack
+        /> */}
+        {/* <NavigatorTrack
           hoveredVariant={hoveredVariant}
           onNavigatorClick={this.onNavigatorClick}
           title="Viewing in table"
           variants={renderedVariants}
           visibleVariantWindow={visibleVariantWindow}
-        />
+        /> */}
         <TrackPageSection style={{ fontSize: '14px', marginTop: '1em' }}>
-          <VariantFilterControls onChange={this.onFilter} value={filter} />
+          {/* <VariantFilterControls onChange={this.onFilter} value={filter} />
           <div>
             <ExportVariantsButton
               datasetId={datasetId}
               exportFileName={`${datasetLabel}_${gene.gene_id}`}
               variants={renderedVariants}
             />
-          </div>
+          </div> */}
           {!transcriptId && (
             <p style={{ marginBottom: 0 }}>
               † denotes a consequence that is for a non-canonical transcript
             </p>
           )}
-          <VariantTable
-            columns={this.getColumns(width, gene.chrom, datasetId)}
+           <VariantTable
+            columns={this.getColumns(width, gene.chrom)}
             highlightText={filter.searchText}
             onHoverVariant={this.onHoverVariant}
             onRequestSort={this.onSort}
@@ -217,7 +231,7 @@ class VariantsInGene extends Component {
             sortKey={sortKey}
             sortOrder={sortOrder}
             variants={renderedVariants}
-          />
+          /> 
         </TrackPageSection>
       </div>
     )
@@ -228,6 +242,7 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
   const clinvarTranscriptArg = transcriptId ? `(transcriptId: "${transcriptId}")` : ''
   const transcriptArg = transcriptId ? `, transcriptId: "${transcriptId}"` : ''
 
+  /*
   const query = `{
     gene(gene_id: "${gene.gene_id}") {
       clinvar_variants${clinvarTranscriptArg} {
@@ -282,6 +297,54 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
       }
     }
   }`
+  */
+
+// GnomAD API
+/*  
+  const query = `{
+    gene(gene_id: "${gene.gene_id}") {
+      variants(dataset: ${datasetId}${transcriptArg}) {
+        consequence
+        ${transcriptId ? '' : 'isCanon: consequence_in_canonical_transcript'}
+        pos
+        variant_id: variantId
+        xpos
+        exome {
+          ac
+          an
+          af
+        }
+        genome {
+          ac
+          an
+          af
+        }
+      }
+    }
+  }`
+*/
+
+// PCGC API  
+  const query = `{
+    gene(gene_id: "${gene.gene_id}") {
+      variants {
+        consequence
+        ${transcriptId ? '' : 'isCanon: consequence_in_canonical_transcript'}
+        pos
+        variant_id: variantId
+        xpos
+        exome {
+          ac
+          an
+          af
+        }
+      }
+    }
+  }`
+
+
+  console.log("In here")
+  console.log(query)
 
   return (
     <Query query={query}>
@@ -296,7 +359,6 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
 
         return (
           <VariantsInGene
-            clinVarVariants={data.gene.clinvar_variants}
             datasetId={datasetId}
             gene={gene}
             transcriptId={transcriptId}
@@ -308,6 +370,20 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
     </Query>
   )
 }
+
+
+/*
+        return (
+          <VariantsInGene
+            clinVarVariants={data.gene.clinvar_variants}
+            datasetId={datasetId}
+            gene={gene}
+            transcriptId={transcriptId}
+            variants={data.gene.variants}
+            width={width}
+          />
+        )
+*/
 
 ConnectedVariantsInGene.propTypes = {
   datasetId: PropTypes.string.isRequired,

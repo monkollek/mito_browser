@@ -38,7 +38,8 @@ const renderExponentialNumberCell = (row, key) => {
   return truncated.toExponential()
 }
 
-export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemizygoteAC }) => {
+//export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemizygoteAC }) => {
+export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) => {
   const columns = [
     {
       key: 'variant_id',
@@ -53,7 +54,7 @@ export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemiz
         </Link>
       ),
     },
-    {
+    /*{
       key: 'datasets',
       heading: 'Source',
       grow: 0,
@@ -80,8 +81,8 @@ export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemiz
                 )}
               </React.Fragment>
             ),
-    },
-    {
+    },*/
+    /*{
       key: 'hgvs',
       heading: 'Consequence',
       grow: 1,
@@ -93,7 +94,7 @@ export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemiz
           {variant.isCanon === false && ' †'}
         </span>
       ),
-    },
+    },*/
     {
       key: 'consequence',
       heading: 'Annotation',
@@ -110,7 +111,7 @@ export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemiz
         </span>
       ),
     },
-    {
+    /*{
       key: 'flags',
       heading: 'Flags',
       grow: 0,
@@ -120,7 +121,7 @@ export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemiz
         row[key]
           .filter(flag => flag !== 'segdup')
           .map(flag => <VariantFlag key={flag} type={flag} />),
-    },
+    },*/
     {
       key: 'ac',
       heading: width < 600 ? 'AC' : 'Allele Count',
@@ -144,7 +145,7 @@ export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemiz
       render: renderExponentialNumberCell,
     },
   ]
-
+  
   if (includeHomozygoteAC) {
     columns.push({
       key: 'ac_hom',
@@ -164,6 +165,6 @@ export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemiz
       minWidth: width < 600 ? 75 : 100,
     })
   }
-
+  
   return columns
 }

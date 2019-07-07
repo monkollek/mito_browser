@@ -67,7 +67,7 @@ const shapeGnomadVariantSummary = (context) => {
   return esHit => {
     // eslint-disable-next-line no-underscore-dangle
     const variantData = esHit._source
-    //console.log(variantData.alt)
+    console.log(variantData)
 
     /*
     // eslint-disable-next-line no-underscore-dangle
@@ -103,11 +103,13 @@ const shapeGnomadVariantSummary = (context) => {
 //      [isExomeVariant ? 'genome' : 'exome']: null,
 //      [isExomeVariant ? 'exome' : 'genome']: {
       exome: {
-        //ac,
+        ac: variantData.AC,
         //ac_hemi: variantData.nonpar ? variantData[subsetKey].AC_adj.male : 0,
         //ac_hom: variantData[subsetKey].nhomalt_adj.total,
-        //an,
+        an: variantData.AN,
         //af: an ? ac / an : 0,
+        af: variantData.AF,
+
         filters: variantData.filters || [],
         populations: POPULATIONS.map(popId => ({
           id: popId.toUpperCase(),

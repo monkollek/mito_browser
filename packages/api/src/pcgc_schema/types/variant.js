@@ -24,11 +24,11 @@ export const VariantInterface = new GraphQLInterfaceType({
 const VariantSequencingDataType = new GraphQLObjectType({
   name: 'VariantSequencingData',
   fields: {
-    //ac: { type: GraphQLInt },
+    ac: { type: GraphQLInt },
     //ac_hemi: { type: GraphQLInt },
     //ac_hom: { type: GraphQLInt },
-    //an: { type: GraphQLInt },
-    //af: { type: GraphQLFloat },
+    an: { type: GraphQLInt },
+    af: { type: GraphQLFloat },
     filters: { type: new GraphQLList(GraphQLString) },
 
     populations: {
