@@ -15,7 +15,7 @@ const filterVariants = (variants, filter) => {
       return filter.includeCategories[category]
     })
   }
-
+/*
   if (!filter.includeFilteredVariants) {
     filteredVariants = filteredVariants.map(v => ({
       ...v,
@@ -46,7 +46,7 @@ const filterVariants = (variants, filter) => {
         (v.hgvs || '').toLowerCase().includes(query)
     )
   }
-
+  */
   // Indel and Snp filters.
   filteredVariants = filteredVariants.filter(v => {
     const splits = v.variant_id.split('-')

@@ -33,7 +33,7 @@ import transcriptType, {
 
 //import regionType from './types/region'
 
-//import { SearchResultType, resolveSearchResults } from './types/search'
+import { SearchResultType, resolveSearchResults } from './types/search'
 import { VariantInterface } from './types/variant'
 
 //import { datasetArgumentTypeForMethod } from './datasets/datasetArgumentTypes'
@@ -114,6 +114,8 @@ The fields below allow for different ways to look up PCGC data. Click on the the
         regionSize: args.stop - args.start,
       }),
     },
+    */
+
     searchResults: {
       type: new GraphQLList(SearchResultType),
       args: {
@@ -121,6 +123,8 @@ The fields below allow for different ways to look up PCGC data. Click on the the
       },
       resolve: (obj, args, ctx) => resolveSearchResults(ctx, args.query),
     },
+
+    /*
     structural_variant: {
       type: GnomadStructuralVariantDetailsType,
       args: {

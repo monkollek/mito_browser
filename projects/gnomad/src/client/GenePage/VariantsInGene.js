@@ -196,26 +196,26 @@ class VariantsInGene extends Component {
       <div>
         {/*<ClinVarTrack variants={clinVarVariants} variantFilter={filter.includeCategories} />*/}
 
-        {/* <VariantTrack
-          title={`${datasetLabel}\n(${renderedVariants.length})`}
+        <VariantTrack
+          title={`PCGC Variants (${renderedVariants.length})`}
           variants={renderedVariants}
-        /> */}
-        {/* <NavigatorTrack
+        />
+        <NavigatorTrack
           hoveredVariant={hoveredVariant}
           onNavigatorClick={this.onNavigatorClick}
           title="Viewing in table"
           variants={renderedVariants}
           visibleVariantWindow={visibleVariantWindow}
-        /> */}
+        />
         <TrackPageSection style={{ fontSize: '14px', marginTop: '1em' }}>
-          {/* <VariantFilterControls onChange={this.onFilter} value={filter} />
+          <VariantFilterControls onChange={this.onFilter} value={filter} />
           <div>
             <ExportVariantsButton
               datasetId={datasetId}
               exportFileName={`${datasetLabel}_${gene.gene_id}`}
               variants={renderedVariants}
             />
-          </div> */}
+          </div>
           {!transcriptId && (
             <p style={{ marginBottom: 0 }}>
               † denotes a consequence that is for a non-canonical transcript

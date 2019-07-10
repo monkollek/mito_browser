@@ -88,7 +88,7 @@ const VariantFilterControls = ({ onChange, value }) => {
       </ConsequenceFiltersWrapper>
 
       <CheckboxFiltersWrapper>
-        <CheckboxSection>
+        {/*<CheckboxSection>
           <Checkbox
             checked={value.includeExomes}
             disabled={!value.includeGenomes}
@@ -107,7 +107,7 @@ const VariantFilterControls = ({ onChange, value }) => {
               onChange({ ...value, includeGenomes })
             }}
           />
-        </CheckboxSection>
+        </CheckboxSection>*/}
         <CheckboxSection>
           <Checkbox
             checked={value.includeSNVs}
@@ -128,7 +128,7 @@ const VariantFilterControls = ({ onChange, value }) => {
             }}
           />
         </CheckboxSection>
-        <CheckboxSection>
+        {/* <CheckboxSection>
           <span>
             <Checkbox
               checked={value.includeFilteredVariants}
@@ -140,10 +140,10 @@ const VariantFilterControls = ({ onChange, value }) => {
             />
             <QuestionMark topic="include-filtered-variants" />
           </span>
-        </CheckboxSection>
+        </CheckboxSection> */}
       </CheckboxFiltersWrapper>
 
-      <SearchWrapper>
+      {/*<SearchWrapper>
         <SearchInput
           ref={searchInput}
           placeholder="Search variant table"
@@ -163,7 +163,7 @@ const VariantFilterControls = ({ onChange, value }) => {
             }
           }}
         />
-      </SearchWrapper>
+      </SearchWrapper> */}
     </SettingsWrapper>
   )
 }
