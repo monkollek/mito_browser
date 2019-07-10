@@ -5,7 +5,7 @@ export const fetchGnomadGenePage = geneName => {
     ? `gene_id: "${geneName}"`
     : `gene_name: "${geneName}"`
 
-    
+    /*
     const query = `{
     gene(${argument}) {
       gene_id
@@ -55,10 +55,10 @@ export const fetchGnomadGenePage = geneName => {
       }
     }
   }`
-
+  */
 
     // Gnomad API
-    /*
+    
     const query = `{
     gene(${argument}) {
       gene_id
@@ -162,7 +162,7 @@ export const fetchGnomadGenePage = geneName => {
         }
       }
     }
-  }`*/
+  }`
 
 
 

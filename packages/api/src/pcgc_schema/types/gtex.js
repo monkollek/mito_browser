@@ -63,6 +63,26 @@ export const GtexTissueExpressionsType = new GraphQLObjectType({
 
 export const fetchGtexTissueExpressionsByTranscript = async (ctx, transcriptId) => {
 
+  transcriptId = transcriptId.concat("*")
+  // query: "ENST00000342665*"
+
+
+  const response = await ctx.database.elastic.search({
+    index: 'gtex_tissue_tpms_by_transcript',
+    type: 'tissue_tpms',
+    size: 1,
+    body: {
+        query : {
+            query_string: {
+                default_field: 'transcriptId',
+                query: transcriptId
+            }
+        }
+    },
+  })
+
+  //console.log(transcriptId)
+/*
   const response = await ctx.database.elastic.search({
     index: 'gtex_tissue_tpms_by_transcript',
     type: 'tissue_tpms',
@@ -77,8 +97,10 @@ export const fetchGtexTissueExpressionsByTranscript = async (ctx, transcriptId) 
       },
     },
   })
+*/
 
   const doc = response.hits.hits[0]
-    
+  //console.log(doc)
+
   return doc ? doc._source : null // eslint-disable-line no-underscore-dangle
 }

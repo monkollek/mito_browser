@@ -297,7 +297,7 @@ class GenePage extends Component {
             </Legend>
           </ControlPanel>
 
-          {/*hasCodingExons && (
+          {hasCodingExons && (
             <ConnectedTranscriptsTrack
               showUTRs={includeUTRs}
               showNonCodingTranscripts={includeNonCodingTranscripts}
@@ -317,7 +317,7 @@ class GenePage extends Component {
                     )
               }
             />
-          ) */}
+          )}
 
           {!hasCodingExons && (
             <StatusMessage>
