@@ -38,13 +38,14 @@ export default () => (
   <HomePage>
     <DocumentTitle />
     <HeadingContainer>
-      <GnomadHeading width="60%" />
-      <SubHeading>PCGC</SubHeading>
+      {/* <GnomadHeading width="60%" /> */}
+      <img src="http://www.leklab.org/wp-content/uploads/2019/07/b2b_logo.png" width="50%" height="50%"></img>
+      <SubHeading>Pediatric Cardiac Genomics Consortium (PCGC)</SubHeading>
       <Searchbox width="100%" />
       <p>
         Examples - Gene:{' '}
-        <Link preserveSelectedDataset={false} to="/gene/PCSK9">
-          PCSK9
+        <Link preserveSelectedDataset={false} to="/gene/SOX12">
+          SOX12
         </Link>
         , Variant:{' '}
         <Link preserveSelectedDataset={false} to="/variant/1-55516888-G-GA">

@@ -15,7 +15,7 @@ const NavBarWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
   padding: 10px 30px;
-  background-color: black;
+  background-color: #0f4d92;
 
   a {
     color: white;
