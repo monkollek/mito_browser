@@ -319,11 +319,11 @@ class GenePage extends Component {
             />
           )}
 
-          {!hasCodingExons && (
+          {/*!hasCodingExons && (
             <StatusMessage>
               Coverage &amp; transcripts not shown for genes with no coding exons
             </StatusMessage>
-          )}
+          )*/}
 
           {/* hasCodingExons && (
             <TissueExpressionTrack exons={cdsCompositeExons} expressionRegions={gene.pext} />

@@ -26,7 +26,7 @@ const VariantSequencingDataType = new GraphQLObjectType({
   fields: {
     ac: { type: GraphQLInt },
     //ac_hemi: { type: GraphQLInt },
-    //ac_hom: { type: GraphQLInt },
+    ac_hom: { type: GraphQLInt },
     an: { type: GraphQLInt },
     af: { type: GraphQLFloat },
     filters: { type: new GraphQLList(GraphQLString) },
@@ -62,9 +62,9 @@ export const VariantSummaryType = new GraphQLObjectType({
     consequence: { type: GraphQLString },
     consequence_in_canonical_transcript: { type: GraphQLBoolean },
     //flags: { type: new GraphQLList(GraphQLString) },
-    //hgvs: { type: GraphQLString },
-    //hgvsc: { type: GraphQLString },
-    //hgvsp: { type: GraphQLString },
+    hgvs: { type: GraphQLString },
+    hgvsc: { type: GraphQLString },
+    hgvsp: { type: GraphQLString },
     //rsid: { type: GraphQLString },
 
     // will keep with this name for future

@@ -82,7 +82,7 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
               </React.Fragment>
             ),
     },*/
-    /*{
+    {
       key: 'hgvs',
       heading: 'Consequence',
       grow: 1,
@@ -94,7 +94,7 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
           {variant.isCanon === false && ' †'}
         </span>
       ),
-    },*/
+    },
     {
       key: 'consequence',
       heading: 'Annotation',

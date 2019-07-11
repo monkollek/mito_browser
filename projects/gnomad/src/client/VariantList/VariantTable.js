@@ -41,7 +41,7 @@ class VariantTable extends PureComponent {
     if (variants.length === 0) {
       return <NoVariants height={500}>No variants found</NoVariants>
     }
-
+    // console.log(variants)
     return (
       <Grid
         cellData={{ highlightWords: highlightText.split(/\s+/) }}

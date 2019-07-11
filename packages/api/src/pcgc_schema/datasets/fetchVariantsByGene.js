@@ -118,6 +118,7 @@ const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) =
         'AC',
         'AN',
         'AF',
+        'nhomalt'
       ],
       body: {
         query : {

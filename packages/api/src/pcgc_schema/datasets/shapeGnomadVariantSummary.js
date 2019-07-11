@@ -94,9 +94,9 @@ const shapeGnomadVariantSummary = (context) => {
       consequence: transcriptConsequence.major_consequence,
       consequence_in_canonical_transcript: !!transcriptConsequence.canonical,
       //flags: getFlags(variantData, transcriptConsequence),
-      //hgvs: transcriptConsequence.hgvs,
-      //hgvsc: transcriptConsequence.hgvsc ? transcriptConsequence.hgvsc.split(':')[1] : null,
-      //hgvsp: transcriptConsequence.hgvsp ? transcriptConsequence.hgvsp.split(':')[1] : null,
+      hgvs: transcriptConsequence.hgvs,
+      hgvsc: transcriptConsequence.hgvsc ? transcriptConsequence.hgvsc.split(':')[1] : null,
+      hgvsp: transcriptConsequence.hgvsp ? transcriptConsequence.hgvsp.split(':')[1] : null,
       //rsid: variantData.rsid,
       
       
@@ -105,7 +105,7 @@ const shapeGnomadVariantSummary = (context) => {
       exome: {
         ac: variantData.AC,
         //ac_hemi: variantData.nonpar ? variantData[subsetKey].AC_adj.male : 0,
-        //ac_hom: variantData[subsetKey].nhomalt_adj.total,
+        ac_hom: variantData.nhomalt,
         an: variantData.AN,
         //af: an ? ac / an : 0,
         af: variantData.AF,

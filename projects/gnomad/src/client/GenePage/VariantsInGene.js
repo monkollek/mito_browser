@@ -92,7 +92,7 @@ class VariantsInGene extends Component {
   getColumns = memoizeOne((width, chrom) =>
     getColumns({
       width,
-      includeHomozygoteAC: false,
+      includeHomozygoteAC: true,
       includeHemizygoteAC: false,
     })
   )
@@ -209,13 +209,13 @@ class VariantsInGene extends Component {
         />
         <TrackPageSection style={{ fontSize: '14px', marginTop: '1em' }}>
           <VariantFilterControls onChange={this.onFilter} value={filter} />
-          <div>
+          {/* <div>
             <ExportVariantsButton
               datasetId={datasetId}
               exportFileName={`${datasetLabel}_${gene.gene_id}`}
               variants={renderedVariants}
             />
-          </div>
+          </div> */}
           {!transcriptId && (
             <p style={{ marginBottom: 0 }}>
               † denotes a consequence that is for a non-canonical transcript
@@ -329,6 +329,9 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
     gene(gene_id: "${gene.gene_id}") {
       variants {
         consequence
+        hgvs
+        hgvsp
+        hgvsc
         ${transcriptId ? '' : 'isCanon: consequence_in_canonical_transcript'}
         pos
         variant_id: variantId
@@ -337,6 +340,7 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
           ac
           an
           af
+          ac_hom
         }
       }
     }
