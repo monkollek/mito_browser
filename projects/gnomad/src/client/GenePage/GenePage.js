@@ -201,7 +201,7 @@ class GenePage extends Component {
           </GnomadPageHeading>
           <GeneInfoColumnWrapper>
             <GeneInfo currentTranscript={transcriptId || gene.canonical_transcript} gene={gene} />
-            {/* <div>
+             <div>
               <h2>
                 Gene Constraint <QuestionMark topic="gene-constraint" />
               </h2>
@@ -210,7 +210,7 @@ class GenePage extends Component {
                 gene={gene}
                 selectedTranscriptId={transcriptId || gene.canonical_transcript}
               />
-            </div> */} 
+            </div>
           </GeneInfoColumnWrapper>
         </TrackPageSection>
         <RegionViewer

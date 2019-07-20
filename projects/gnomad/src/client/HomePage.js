@@ -48,8 +48,8 @@ export default () => (
           SOX12
         </Link>
         , Variant:{' '}
-        <Link preserveSelectedDataset={false} to="/variant/1-55516888-G-GA">
-          1-55516888-G-GA
+        <Link preserveSelectedDataset={false} to="/variant/1-55529215-C-A">
+          1-55529215-C-A
         </Link>
       </p>
     </HeadingContainer>

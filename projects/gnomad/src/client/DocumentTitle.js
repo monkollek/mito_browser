@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 const DocumentTitle = ({ title }) => {
   useEffect(
     () => {
-      const fullTitle = title ? `${title} | gnomAD` : 'gnomAD'
+      const fullTitle = title ? `${title} | PCGC` : 'PCGC'
       document.title = fullTitle
     },
     [title]
