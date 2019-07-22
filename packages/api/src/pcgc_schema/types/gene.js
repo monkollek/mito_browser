@@ -8,18 +8,20 @@ import {
   GraphQLFloat,
 } from 'graphql'
 
+
 /*
 import { datasetArgumentTypeForMethod } from '../datasets/datasetArgumentTypes'
 import datasetsConfig from '../datasets/datasetsConfig'
 import fetchGnomadStructuralVariantsByGene from '../datasets/gnomad_sv_r2/fetchGnomadStructuralVariantsByGene'
+*/
 
 import {
   ClinvarVariantType,
   fetchClinvarVariantsInGene,
   fetchClinvarVariantsInTranscript,
 } from '../datasets/clinvar'
-import { UserVisibleError } from '../errors'
-*/
+// import { UserVisibleError } from '../errors'
+
 
 import transcriptType, {
   CompositeTranscriptType,
@@ -67,7 +69,7 @@ const geneType = new GraphQLObjectType({
       type: CompositeTranscriptType,
       resolve: (obj, args, ctx) => fetchCompositeTranscriptByGene(ctx, obj),
     },
-    /*
+    
     clinvar_variants: {
       type: new GraphQLList(ClinvarVariantType),
       args: {
@@ -79,6 +81,7 @@ const geneType = new GraphQLObjectType({
           : fetchClinvarVariantsInGene(obj.gene_id, ctx)
       },
     },
+    /*
     pext: {
       type: new GraphQLList(PextRegionType),
       resolve: (obj, args, ctx) => fetchPextRegionsByGene(ctx, obj.gene_id),
