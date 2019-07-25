@@ -349,6 +349,9 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
           an
           af
           ac_hom
+          ac_proband
+          an_proband
+          af_proband
         }
       }
     }

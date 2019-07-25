@@ -97,7 +97,8 @@ const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) =
 
 
   const hits = await fetchAllSearchResults(ctx.database.elastic, { 
-      index: 'pcgc_chr20_test',
+//      index: 'pcgc_chr20_test',
+      index: 'pcgc_exomes',
       type: 'variant',
       size: 10000,
       _source: [
@@ -118,7 +119,10 @@ const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) =
         'AC',
         'AN',
         'AF',
-        'nhomalt'
+        'nhomalt',
+        'AC_proband',
+        'AN_proband',
+        'AF_proband'
       ],
       body: {
         query : {

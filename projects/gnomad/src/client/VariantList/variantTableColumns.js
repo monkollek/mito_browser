@@ -123,6 +123,13 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
           .map(flag => <VariantFlag key={flag} type={flag} />),
     },*/
     {
+      key: 'ac_proband',
+      heading: width < 600 ? 'PC' : 'Proband Count',
+      grow: 0,
+      isSortable: true,
+      minWidth: width < 600 ? 75 : 110,
+    },
+    {
       key: 'ac',
       heading: width < 600 ? 'AC' : 'Allele Count',
       grow: 0,

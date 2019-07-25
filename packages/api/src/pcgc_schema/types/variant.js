@@ -29,6 +29,9 @@ const VariantSequencingDataType = new GraphQLObjectType({
     ac_hom: { type: GraphQLInt },
     an: { type: GraphQLInt },
     af: { type: GraphQLFloat },
+    ac_proband: { type: GraphQLInt },
+    an_proband: { type: GraphQLInt },
+    af_proband: { type: GraphQLFloat },
     filters: { type: new GraphQLList(GraphQLString) },
 
     populations: {

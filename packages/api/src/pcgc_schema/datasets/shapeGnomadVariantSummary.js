@@ -109,6 +109,9 @@ const shapeGnomadVariantSummary = (context) => {
         an: variantData.AN,
         //af: an ? ac / an : 0,
         af: variantData.AF,
+        ac_proband: variantData.AC_proband,
+        an_proband: variantData.AN_proband,
+        af_proband: variantData.AF_proband,
 
         filters: variantData.filters || [],
         populations: POPULATIONS.map(popId => ({
