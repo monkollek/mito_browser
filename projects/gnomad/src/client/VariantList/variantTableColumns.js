@@ -173,5 +173,20 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
     })
   }
   
+  columns.push({
+  key: 'gnomad_freq',
+  heading: width < 600 ? 'GAF' : 'gnomAD Frequency',
+  grow: 0,
+  isSortable: true,
+  minWidth: width < 600 ? 75 : 100,
+  render: renderExponentialNumberCell
+  /*render: (row, key, { highlightWords }) => (
+    <Link className="grid-cell-content" target="_blank" to={`/variant/${row.key}`}>
+      <Highlighter searchWords={highlightWords} textToHighlight={row[key]} />
+    </Link>
+  ),*/
+  })
+
+
   return columns
 }

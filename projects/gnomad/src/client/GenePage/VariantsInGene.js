@@ -344,6 +344,8 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
         pos
         variant_id: variantId
         xpos
+        ac_gnomad
+        an_gnomad
         exome {
           ac
           an

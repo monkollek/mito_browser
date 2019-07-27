@@ -36,11 +36,13 @@ const mergeExomeAndGenomeData = variants =>
     const totalAN = exome.an
     const totalAF = totalAN ? totalAC / totalAN : 0
     */
+
     if(variant.exome){
       return{
         ...variant,
         ...variant.exome,
-        allele_freq: variant.exome.af
+        allele_freq: variant.exome.af,
+        gnomad_freq: variant.an_gnomad ? variant.ac_gnomad/variant.an_gnomad : 0
       }
     }
     else{

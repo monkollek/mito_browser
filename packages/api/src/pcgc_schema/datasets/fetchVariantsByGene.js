@@ -145,7 +145,7 @@ const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) =
 
 
   const query = `{
-    gene(gene_name: "ACTA1") {
+    gene(gene_id: "${geneId}") {
       gene_id
       gene_name
       variants(dataset: gnomad_r2_1){
