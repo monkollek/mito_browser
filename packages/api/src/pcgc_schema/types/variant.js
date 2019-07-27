@@ -70,6 +70,9 @@ export const VariantSummaryType = new GraphQLObjectType({
     hgvsp: { type: GraphQLString },
     //rsid: { type: GraphQLString },
 
+    ac_gnomad: { type: GraphQLInt },
+    an_gnomad: { type: GraphQLInt },    
+
     // will keep with this name for future
     exome: { type: VariantSequencingDataType },
     //genome: { type: VariantSequencingDataType },

@@ -1,7 +1,7 @@
 import { fetchAllSearchResults } from '../../utilities/elasticsearch'
 import { mergeOverlappingRegions } from '../../utilities/region'
 import { lookupExonsByGeneId } from '../types/exon'
-
+import { request } from "graphql-request"
 /*
 import {
   annotateVariantsWithMNVFlag,
@@ -9,7 +9,7 @@ import {
 } from './gnomadMultiNucleotideVariants'
 */
 
-//import mergeExomeAndGenomeVariantSummaries from './mergeExomeAndGenomeVariantSummaries'
+import mergePcgcAndGnomadVariantSummaries from './mergePcgcAndGnomadVariants'
 import shapeGnomadVariantSummary from './shapeGnomadVariantSummary'
 
 const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) => {
@@ -144,7 +144,31 @@ const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) =
   //)
 
 
+  const query = `{
+    gene(gene_name: "ACTA1") {
+      gene_id
+      gene_name
+      variants(dataset: gnomad_r2_1){
+        pos
+        variantId
+        exome{
+          ac
+          an
+        }
+        genome{
+          ac
+          an
+        }
+      }
+    }
+  }
+  `
+  //request("http://gnomad.broadinstitute.org/api", query).then(console.log).catch(console.error)
 
+  const gnomad_data = await request("http://gnomad.broadinstitute.org/api", query)
+  //console.log(gnomad_data.gene.variants)
+
+  const combinedVariants = mergePcgcAndGnomadVariantSummaries(exomeVariants,gnomad_data.gene.variants)
   //const combinedVariants = mergeExomeAndGenomeVariantSummaries(exomeVariants, genomeVariants)
 
   // TODO: This can be fetched in parallel with exome/genome data
@@ -153,9 +177,12 @@ const fetchVariantsByGene = async (ctx, geneId, canonicalTranscriptId, subset) =
   //console.log("In here")
   //console.log(exomeVariants)
   //console.log("In here2")
+  
+  //console.log(combinedVariants.length)
+  //console.log(exomeVariants.length)
 
-  //return combinedVariants
-  return exomeVariants
+  return combinedVariants
+  //return exomeVariants
   //const variantData = exomeVariants._source
 
 /*

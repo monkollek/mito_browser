@@ -98,6 +98,8 @@ const shapeGnomadVariantSummary = (context) => {
       hgvsc: transcriptConsequence.hgvsc ? transcriptConsequence.hgvsc.split(':')[1] : null,
       hgvsp: transcriptConsequence.hgvsp ? transcriptConsequence.hgvsp.split(':')[1] : null,
       //rsid: variantData.rsid,
+      ac_gnomad: 0,
+      an_gnomad: 0,
       
       
 //      [isExomeVariant ? 'genome' : 'exome']: null,
