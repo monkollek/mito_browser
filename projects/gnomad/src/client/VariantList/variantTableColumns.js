@@ -38,6 +38,18 @@ const renderExponentialNumberCell = (row, key) => {
   return truncated.toExponential()
 }
 
+const truncateNum = (number) => {
+
+  if (number === null || number === undefined) {
+    return ''
+  }
+  const truncated = Number(number.toPrecision(3))
+  if (truncated === 0) {
+    return '0'
+  }
+  return truncated.toExponential()
+}
+
 //export const getColumns = ({ datasetId, width, includeHomozygoteAC, includeHemizygoteAC }) => {
 export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) => {
   const columns = [
@@ -179,12 +191,12 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
   grow: 0,
   isSortable: true,
   minWidth: width < 600 ? 75 : 100,
-  render: renderExponentialNumberCell
-  /*render: (row, key, { highlightWords }) => (
-    <Link className="grid-cell-content" target="_blank" to={`/variant/${row.key}`}>
-      <Highlighter searchWords={highlightWords} textToHighlight={row[key]} />
+  //render: renderExponentialNumberCell
+  render: (variant, key) => (
+    <Link className="grid-cell-content" target="_blank" to={`https://gnomad.broadinstitute.org/variant/${variant.variant_id}`}>
+    {truncateNum(variant.gnomad_freq)}
     </Link>
-  ),*/
+  ),
   })
 
 
