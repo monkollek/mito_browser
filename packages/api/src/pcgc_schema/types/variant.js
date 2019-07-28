@@ -43,7 +43,7 @@ const VariantSequencingDataType = new GraphQLObjectType({
             ac: { type: new GraphQLNonNull(GraphQLInt) },
             an: { type: new GraphQLNonNull(GraphQLInt) },
             //ac_hemi: { type: new GraphQLNonNull(GraphQLInt) },
-            //ac_hom: { type: new GraphQLNonNull(GraphQLInt) },
+            ac_hom: { type: new GraphQLNonNull(GraphQLInt) },
           },
         })
       ),

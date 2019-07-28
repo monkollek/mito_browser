@@ -81,8 +81,8 @@ export class PcgcPopulationsTable extends Component {
         ac: PropTypes.number.isRequired,
         an: PropTypes.number.isRequired,
         //ac_hemi: PropTypes.number.isRequired,
-        //ac_hom: PropTypes.number.isRequired,
-        ac_hom: PropTypes.number,
+        ac_hom: PropTypes.number.isRequired,
+        //ac_hom: PropTypes.number,
 
         /*
         subpopulations: PropTypes.arrayOf(
@@ -116,9 +116,8 @@ export class PcgcPopulationsTable extends Component {
 
   static defaultProps = {
     //showHemizygotes: true,
-    //showHomozygotes: true,
+    showHomozygotes: true,
     showHemizygotes: false,
-    showHomozygotes: false,
   }
 
   constructor(props) {

@@ -152,7 +152,7 @@ const fetchVariantData = async (ctx, variantId) => {
 
   const exomeData = await ctx.database.elastic.search({
   //await ctx.database.elastic.search({
-    index: 'pcgc_chr20_test',
+    index: 'pcgc_exomes',
     type: 'variant',
     _source: [
 //      requestSubset,

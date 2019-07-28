@@ -16,6 +16,7 @@ query PcgcVariant($variantId: String!) {
           id
           ac
           an
+          ac_hom
         }
       }
       sortedTranscriptConsequences {
