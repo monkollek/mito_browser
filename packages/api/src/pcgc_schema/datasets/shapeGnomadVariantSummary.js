@@ -98,34 +98,11 @@ const shapeGnomadVariantSummary = (context) => {
       hgvsc: transcriptConsequence.hgvsc ? transcriptConsequence.hgvsc.split(':')[1] : null,
       hgvsp: transcriptConsequence.hgvsp ? transcriptConsequence.hgvsp.split(':')[1] : null,
       //rsid: variantData.rsid,
-      ac_gnomad: 0,
-      an_gnomad: 0,
-      
-      
-//      [isExomeVariant ? 'genome' : 'exome']: null,
-//      [isExomeVariant ? 'exome' : 'genome']: {
-      exome: {
-        ac: variantData.AC,
-        //ac_hemi: variantData.nonpar ? variantData[subsetKey].AC_adj.male : 0,
-        ac_hom: variantData.nhomalt,
-        an: variantData.AN,
-        //af: an ? ac / an : 0,
-        af: variantData.AF,
-        ac_proband: variantData.AC_proband,
-        an_proband: variantData.AN_proband,
-        af_proband: variantData.AF_proband,
+      ac_high: variantData.ac_high,
+      ac_low: variantData.ac_low,
+      max_vl: variantData.max_vl,
+      af: variantData.af
 
-        filters: variantData.filters || [],
-        populations: POPULATIONS.map(popId => ({
-          id: popId.toUpperCase(),
-          ac: variantData.AC_adj[popId] || 0,
-          an: variantData.AN_adj[popId] || 0,
-          //an: variantData.AN_adj[popId],
-
-          //ac_hemi: variantData.nonpar ? (variantData[subsetKey].AC_adj[popId] || {}).male || 0 : 0,
-          ac_hom: variantData.nhomalt_adj[popId] || 0,
-        })),
-      },
     }
   }
 }

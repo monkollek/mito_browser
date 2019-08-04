@@ -205,11 +205,11 @@ class GenePage extends Component {
               <h2>
                 Gene Constraint <QuestionMark topic="gene-constraint" />
               </h2>
-              <ConstraintTableOrPlaceholder
+              {/*<ConstraintTableOrPlaceholder
                 datasetId={datasetId}
                 gene={gene}
                 selectedTranscriptId={transcriptId || gene.canonical_transcript}
-              />
+              />*/}
             </div>
           </GeneInfoColumnWrapper>
         </TrackPageSection>
@@ -297,7 +297,7 @@ class GenePage extends Component {
             </Legend>
           </ControlPanel>
 
-          {hasCodingExons && (
+          {/*hasCodingExons && (
             <ConnectedTranscriptsTrack
               showUTRs={includeUTRs}
               showNonCodingTranscripts={includeNonCodingTranscripts}
@@ -317,7 +317,7 @@ class GenePage extends Component {
                     )
               }
             />
-          )}
+          )*/}
 
           {/*!hasCodingExons && (
             <StatusMessage>

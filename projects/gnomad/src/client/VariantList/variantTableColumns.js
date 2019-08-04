@@ -133,28 +133,43 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
         row[key]
           .filter(flag => flag !== 'segdup')
           .map(flag => <VariantFlag key={flag} type={flag} />),
-    },*/
+    },
     {
       key: 'ac_proband',
       heading: width < 600 ? 'PC' : 'Proband Count',
       grow: 0,
       isSortable: true,
       minWidth: width < 600 ? 75 : 110,
-    },
+    },*/
     {
-      key: 'ac',
-      heading: width < 600 ? 'AC' : 'Allele Count',
+      key: 'ac_high',
+      heading: width < 600 ? 'AC Low' : 'Allele High Count',
       grow: 0,
       isSortable: true,
       minWidth: width < 600 ? 75 : 110,
     },
     {
+      key: 'ac_low',
+      heading: width < 600 ? 'AC Low' : 'Allele Low Count',
+      grow: 0,
+      isSortable: true,
+      minWidth: width < 600 ? 75 : 110,
+    },
+    {
+      key: 'max_vl',
+      heading: width < 600 ? 'VL High' : 'Max Variant Level',
+      grow: 0,
+      isSortable: true,
+      minWidth: width < 600 ? 75 : 110,
+      render: renderExponentialNumberCell,
+    },
+    /*{
       key: 'an',
       heading: width < 600 ? 'AN' : 'Allele Number',
       grow: 0,
       isSortable: true,
       minWidth: width < 600 ? 75 : 110,
-    },
+    },*/
     {
       key: 'af',
       heading: width < 600 ? 'AF' : 'Allele Frequency',
@@ -164,7 +179,7 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
       render: renderExponentialNumberCell,
     },
   ]
-  
+  /*
   if (includeHomozygoteAC) {
     columns.push({
       key: 'ac_hom',
@@ -184,21 +199,7 @@ export const getColumns = ({ width, includeHomozygoteAC, includeHemizygoteAC }) 
       minWidth: width < 600 ? 75 : 100,
     })
   }
-  
-  columns.push({
-  key: 'gnomad_freq',
-  heading: width < 600 ? 'GAF' : 'gnomAD Frequency',
-  grow: 0,
-  isSortable: true,
-  minWidth: width < 600 ? 75 : 100,
-  //render: renderExponentialNumberCell
-  render: (variant, key) => (
-    <Link className="grid-cell-content" target="_blank" to={`https://gnomad.broadinstitute.org/variant/${variant.variant_id}`}>
-    {truncateNum(variant.gnomad_freq)}
-    </Link>
-  ),
-  })
-
+  */
 
   return columns
 }

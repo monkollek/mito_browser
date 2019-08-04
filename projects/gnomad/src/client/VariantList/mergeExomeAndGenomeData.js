@@ -48,8 +48,8 @@ const mergeExomeAndGenomeData = variants =>
     else{
       return{
         ...variant,
-        ...variant.genome,
-        allele_freq: variant.genome.af
+        //...variant.genome,
+        //allele_freq: variant.genome.af
       }      
     }
 
