@@ -24,6 +24,7 @@ import StructuralVariantsInGene from './StructuralVariantsInGene'
 import TissueExpressionTrack from './TissueExpressionTrack'
 import TranscriptLink from './TranscriptLink'
 import VariantsInGene from './VariantsInGene'
+import GeneSVG from './GeneSVG'
 
 const GeneFullName = styled.span`
   font-size: 0.75em;
@@ -202,14 +203,15 @@ class GenePage extends Component {
           <GeneInfoColumnWrapper>
             <GeneInfo currentTranscript={transcriptId || gene.canonical_transcript} gene={gene} />
              <div>
-              <h2>
+              {/*<h2>
                 Gene Constraint <QuestionMark topic="gene-constraint" />
-              </h2>
+              </h2>*/}
               {/*<ConstraintTableOrPlaceholder
                 datasetId={datasetId}
                 gene={gene}
                 selectedTranscriptId={transcriptId || gene.canonical_transcript}
               />*/}
+              <GeneSVG gene={gene.gene_name} />
             </div>
           </GeneInfoColumnWrapper>
         </TrackPageSection>
