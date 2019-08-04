@@ -21,7 +21,7 @@ import ClinVarTrack from './ClinVarTrack'
 
 class VariantsInGene extends Component {
   static propTypes = {
-    // clinVarVariants: PropTypes.arrayOf(PropTypes.object).isRequired,
+    clinVarVariants: PropTypes.arrayOf(PropTypes.object).isRequired,
     datasetId: PropTypes.string.isRequired,
     gene: PropTypes.shape({
       chrom: PropTypes.string.isRequired,
@@ -177,8 +177,8 @@ class VariantsInGene extends Component {
   }
 
   render() {
-    //const { clinVarVariants, datasetId, gene, transcriptId, width } = this.props
-    const { datasetId, gene, transcriptId, width } = this.props
+    const { clinVarVariants, datasetId, gene, transcriptId, width } = this.props
+    //const { datasetId, gene, transcriptId, width } = this.props
 
     const {
       filter,
@@ -194,7 +194,7 @@ class VariantsInGene extends Component {
 
     return (
       <div>
-        {/*<ClinVarTrack variants={clinVarVariants} variantFilter={filter.includeCategories} />*/}
+        <ClinVarTrack variants={clinVarVariants} variantFilter={filter.includeCategories} />
 
         <VariantTrack
           title={`PCGC Variants (${renderedVariants.length})`}
@@ -239,7 +239,7 @@ class VariantsInGene extends Component {
 }
 
 const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
-  // const clinvarTranscriptArg = transcriptId ? `(transcriptId: "${transcriptId}")` : ''
+  const clinvarTranscriptArg = transcriptId ? `(transcriptId: "${transcriptId}")` : ''
   const transcriptArg = transcriptId ? `, transcriptId: "${transcriptId}"` : ''
 
 
@@ -284,6 +284,14 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
 
   const query = `{
     gene(gene_id: "${gene.gene_id}") {
+      clinvar_variants${clinvarTranscriptArg} {
+        alleleId
+        clinicalSignificance
+        goldStars
+        majorConsequence
+        pos
+        variantId
+      }      
       variants {
         consequence
         hgvs
@@ -317,7 +325,7 @@ const ConnectedVariantsInGene = ({ datasetId, gene, transcriptId, width }) => {
 
         return (
           <VariantsInGene
-            // clinVarVariants={data.gene.clinvar_variants}
+            clinVarVariants={data.gene.clinvar_variants}
             datasetId={datasetId}
             gene={gene}
             transcriptId={transcriptId}
