@@ -49,18 +49,19 @@ const combinePopulations = populations => {
       if (!acc[pop.id]) {
         acc[pop.id] = {
           id: pop.id,
-          name: POPULATION_NAMES[pop.id],
+          //name: POPULATION_NAMES[pop.id],
+          name: pop.id,
           ac: 0,
           an: 0,
           //ac_hemi: 0,
-          ac_hom: 0,
+          //ac_hom: 0,
           //subpopulations: [],
         }
       }
       acc[pop.id].ac += pop.ac
       acc[pop.id].an += pop.an
       //acc[pop.id].ac_hemi += pop.ac_hemi
-      acc[pop.id].ac_hom += pop.ac_hom
+      //acc[pop.id].ac_hom += pop.ac_hom
       /*
       if (pop.subpopulations) {
         acc[pop.id].subpopulations = combinePopulations(
@@ -81,7 +82,7 @@ export class PcgcPopulationsTable extends Component {
         ac: PropTypes.number.isRequired,
         an: PropTypes.number.isRequired,
         //ac_hemi: PropTypes.number.isRequired,
-        ac_hom: PropTypes.number.isRequired,
+        //ac_hom: PropTypes.number.isRequired,
         //ac_hom: PropTypes.number,
 
         /*
@@ -116,7 +117,7 @@ export class PcgcPopulationsTable extends Component {
 
   static defaultProps = {
     //showHemizygotes: true,
-    showHomozygotes: true,
+    showHomozygotes: false,
     showHemizygotes: false,
   }
 

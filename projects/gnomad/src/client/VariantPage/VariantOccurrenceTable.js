@@ -107,11 +107,11 @@ FilteringAlleleFrequency.defaultProps = {
 }
 
 export const GnomadVariantOccurrenceTable = ({ variant }) => {
-  const isPresentInExome = Boolean(variant.exome)
+  const isPresentInExome = Boolean(variant)
  //const isPresentInGenome = Boolean(variant.genome)
 
-  const exomeAlleleCount = isPresentInExome ? variant.exome.ac : 0
-  const exomeAlleleNumber = isPresentInExome ? variant.exome.an : 0
+  const exomeAlleleCount = isPresentInExome ? variant.ac : 0
+  const exomeAlleleNumber = isPresentInExome ? variant.an : 0
   //const genomeAlleleCount = isPresentInGenome ? variant.genome.ac : 0
   //const genomeAlleleNumber = isPresentInGenome ? variant.genome.an : 0
 
@@ -128,7 +128,7 @@ export const GnomadVariantOccurrenceTable = ({ variant }) => {
       <tbody>
         <tr>
           <td />
-          <th scope="col">Exomes</th>
+          <th scope="col">Mito Genomes</th>
         </tr>
         {/*<tr>
           <th scope="row">Filter</th>
@@ -153,15 +153,24 @@ export const GnomadVariantOccurrenceTable = ({ variant }) => {
 
 GnomadVariantOccurrenceTable.propTypes = {
   variant: PropTypes.shape({
+    ac: PropTypes.number.isRequired,
+    an: PropTypes.number.isRequired
+  }).isRequired,
+}
+
+
+/*
+GnomadVariantOccurrenceTable.propTypes = {
+  variant: PropTypes.shape({
     exome: PropTypes.shape({
       ac: PropTypes.number.isRequired,
       an: PropTypes.number.isRequired,
-      /*faf95: PropTypes.shape({
+      faf95: PropTypes.shape({
         popmax: PropTypes.number,
         popmax_population: PropTypes.string,
-      }).isRequired,*/
+      }).isRequired,
     }),
-    /*
+    
     genome: PropTypes.shape({
       ac: PropTypes.number.isRequired,
       an: PropTypes.number.isRequired,
@@ -169,9 +178,10 @@ GnomadVariantOccurrenceTable.propTypes = {
         popmax: PropTypes.number,
         popmax_population: PropTypes.string,
       }).isRequired,
-    }),*/
+    }),
   }).isRequired,
 }
+*/
 
 /* <Table>
       <tbody>
