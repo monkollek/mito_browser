@@ -14,6 +14,10 @@ const formatHistogram = histogramData => ({
 //const POPULATIONS = ['afr', 'amr', 'asj', 'eas', 'fin', 'nfe', 'oth', 'sas']
 const POPULATIONS = ['afr', 'amr', 'eas', 'eur', 'oth', 'sas']
 
+const HAPLOTYPES = ["A","B","C","D","E","F","G","H","H+","H1","H2","H3","H4","H5","H6","H7","H8","H9","HV","I","J","K","L0","L1",
+        "L2","L3","L4","M","N","P","R","T","U","V","W","X","Y","Z"]
+
+
 /*
 const SUBPOPULATIONS = {
   afr: ['female', 'male'],
@@ -48,6 +52,31 @@ const formatPopulations = variantData =>
     })),*/
 
   }))
+
+
+const formatHaplotypes = variantData =>
+  HAPLOTYPES.map(hapId => ({
+    id: hapId.toUpperCase(),
+    ac: variantData.AC_hap[hapId] || 0,
+    an: variantData.AN_hap[hapId] || 0,
+    //ac_hom: variantData.nhomalt_adj[popId] || 0,
+
+    //ac: (variantData.AC_adj[popId] || {}).total || 0,
+    //an: (variantData.AN_adj[popId] || {}).total || 0,
+    //ac_hemi: variantData.nonpar ? (variantData.AC_adj[popId] || {}).male || 0 : 0,
+    //ac_hom: (variantData.nhomalt_adj[popId] || {}).total || 0,
+
+    /*
+    subpopulations: SUBPOPULATIONS[popId].map(subPopId => ({
+      id: subPopId.toUpperCase(),
+      ac: (variantData.AC_adj[popId] || {})[subPopId] || 0,
+      an: (variantData.AN_adj[popId] || {})[subPopId] || 0,
+      ac_hom: (variantData.nhomalt_adj[popId] || {})[subPopId] || 0,
+    })),*/
+
+  }))
+
+
 
 /*
 const formatFilteringAlleleFrequency = (variantData, fafField) => {
@@ -152,7 +181,7 @@ const fetchVariantData = async (ctx, variantId) => {
 
   const exomeData = await ctx.database.elastic.search({
   //await ctx.database.elastic.search({
-    index: 'pcgc_exomes',
+    index: 'gnomad_mt',
     type: 'variant',
     _source: [
 //      requestSubset,
@@ -178,17 +207,10 @@ const fetchVariantData = async (ctx, variantId) => {
       'sortedTranscriptConsequences',
       'variant_id',
       'xpos',
-      'AC_adj',
-      'AN_adj',
-      'AF_adj',
-      'nhomalt_adj',
-      'AC',
-      'AF',
-      'AN',
-      'nhomalt',
-      'AC_raw',
-      'AN_raw',
-      'AF_raw',
+      'AC_hap',
+      'AN_hap',
+      'ac',
+      'an'
 
     ],
     body: {
@@ -319,6 +341,10 @@ const fetchVariantDetails = async (ctx, variantId) => {
     // variant interface fields
     ...sharedVariantFields,
     // gnomAD specific fields
+    haplotypes: formatHaplotypes(exomeData),
+    ac: sharedData.ac,
+    an: sharedData.an,
+    //populations: formatPopulations(exomeData)
 
     /*
     age_distribution: {
@@ -328,7 +354,7 @@ const fetchVariantDetails = async (ctx, variantId) => {
     colocatedVariants,
     multiNucleotideVariants,
     */
-    
+  /*    
     exome: exomeData
       ? {
           // Include variant fields so that the reads data resolver can access them.
@@ -349,7 +375,6 @@ const fetchVariantDetails = async (ctx, variantId) => {
           //filters: exomeData.filters,
           populations: formatPopulations(exomeData),
           
-          /*
           qualityMetrics: {
             alleleBalance: {
               alt: formatHistogram(exomeData.ab_hist_alt),
@@ -368,10 +393,10 @@ const fetchVariantDetails = async (ctx, variantId) => {
               RF: exomeData.rf_tp_probability,
               SiteQuality: exomeData.qual,
             },
-          },*/
+          },
 
         }
-      : null,
+      : null,*/
 
     /*
     flags: ['lcr', 'segdup', 'lc_lof', 'lof_flag'].filter(flag => sharedData.flags[flag]),

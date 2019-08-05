@@ -47,6 +47,19 @@ const PopulationType = new GraphQLObjectType({
   },
 })
 
+
+const HaplotypeType = new GraphQLObjectType({
+  name: 'VariantHaplotype',
+  fields: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+    ac: { type: new GraphQLNonNull(GraphQLInt) },
+    an: { type: new GraphQLNonNull(GraphQLInt) },
+    //ac_hemi: { type: new GraphQLNonNull(GraphQLInt) },
+    //ac_hom: { type: new GraphQLNonNull(GraphQLInt) },
+    //subpopulations: { type: new GraphQLList(GnomadSubpopulationType) },
+  },
+})
+
 /*
 const GnomadVariantQualityMetricsType = new GraphQLObjectType({
   name: 'GnomadVariantQualityMetrics',
@@ -126,6 +139,10 @@ const VariantDetailsType = new GraphQLObjectType({
     variantId: { type: new GraphQLNonNull(GraphQLString) },
     xpos: { type: new GraphQLNonNull(GraphQLFloat) },
 
+    ac: { type: new GraphQLNonNull(GraphQLInt) },
+    an: { type: new GraphQLNonNull(GraphQLInt) },
+
+    haplotypes: { type: new GraphQLList(HaplotypeType) },
     /*
     // gnomAD specific fields
     age_distribution: {
@@ -141,7 +158,7 @@ const VariantDetailsType = new GraphQLObjectType({
     multiNucleotideVariants: { type: new GraphQLList(MultiNucleotideVariantSummaryType) },
     */
 
-    
+    /*    
     exome: {
       type: new GraphQLObjectType({
         name: 'VariantDetailsExomeData',
@@ -157,7 +174,7 @@ const VariantDetailsType = new GraphQLObjectType({
           //filters: { type: new GraphQLList(GraphQLString) },
           populations: { type: new GraphQLList(PopulationType) },
           
-          /*
+          
           qualityMetrics: { type: GnomadVariantQualityMetricsType },
           reads: {
             type: new GraphQLList(ReadDataType),
@@ -175,10 +192,10 @@ const VariantDetailsType = new GraphQLObjectType({
                 throw new UserVisibleError('Unable to load reads data')
               }
             },
-          },*/
+          },
         },
       }),
-    },
+    },*/
     
     /*
     flags: { type: new GraphQLList(GraphQLString) },

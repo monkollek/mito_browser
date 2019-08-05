@@ -44,11 +44,11 @@ var dict = {
 class GeneSVG extends React.Component{
 
     state = {
-        cx: 200,            //x coordinate of circle center
-        cy: 200,            //y coordinate of circle center
-        radius: 150,        //radius of outer circle
-        innerRadius: 125,   //radius of inner circle
-        dist: 25            //distance between two circles
+        cx: 260,            //x coordinate of circle center
+        cy: 220,            //y coordinate of circle center
+        radius: 155,        //radius of outer circle
+        innerRadius: 135,   //radius of inner circle
+        dist: 20            //distance between two circles
     }
     
     polarToCartesian(centerX, centerY, radius, angleInDegrees) {
@@ -64,6 +64,7 @@ class GeneSVG extends React.Component{
         var dist = this.state.dist;
         var cx = this.state.cx;
         var cy = this.state.cy;
+        var innerRadius = this.state.innerRadius;
 
         //if either prop exists and starts with MT-, create base circle
         if((this.props.variant&&this.props.variant.startsWith("MT-"))|(this.props.gene&&this.props.gene.startsWith("MT-"))){
@@ -242,8 +243,8 @@ class GeneSVG extends React.Component{
 
                 var textPos = (value[0]+value[1])/2;
                 var textAngle = textPos/16569*2*Math.PI-Math.PI/2;  //text angle in radians
-                var textX = 1.02 * radius * Math.cos(textAngle) + cx;
-                var textY = 1.02 * radius * Math.sin(textAngle) + cy;
+                var textX = 0.98 * innerRadius * Math.cos(textAngle) + cx;
+                var textY = 0.98 * innerRadius * Math.sin(textAngle) + cy;
 
                 var labelNode = document.createElementNS('http://www.w3.org/2000/svg','text');
                 var label = document.createTextNode(key);
@@ -253,13 +254,13 @@ class GeneSVG extends React.Component{
                 labelNode.setAttribute("y",textY);
                 if(textAngle>Math.PI/2){
                     textAngle = textAngle+Math.PI;
-                    labelNode.setAttribute("text-anchor","end");
-                } else {
                     labelNode.setAttribute("text-anchor","start");
+                } else {
+                    labelNode.setAttribute("text-anchor","end");
                 }
                 labelNode.setAttribute("transform","rotate("+textAngle*180/Math.PI+","+textX+","+textY+")");
                 labelNode.setAttribute("fill","black");
-                labelNode.setAttribute("font-size","7");
+                labelNode.setAttribute("font-size","6");
                 labelNode.setAttribute("alignment-baseline","central");
                 labelNode.setAttribute("id",key);
                 labelNode.setAttribute("class","textLabels");
@@ -284,11 +285,13 @@ class GeneSVG extends React.Component{
         }
 
         //if gene page
-        if(this.props.gene&&this.props.gene.startsWith("MT-")){                    
+        if(this.props.gene&&this.props.gene.startsWith("MT-")){            
+
             var newGene = this.props.gene;
             var newPos = dict[newGene];
 
             if (newPos!==null){
+                //highlight sector
                 var opts = {
                     cx: cx,
                     cy: cy,
@@ -309,16 +312,36 @@ class GeneSVG extends React.Component{
                 highlight.setAttribute("d",d);
                 highlight.setAttribute("fill","red");
                 highlight.setAttribute("id","highlight");
-                //highlight.setAttribute("stroke","saddlebrown");
-                //highlight.setAttribute("stroke-width","2");
                 var svgnode = document.getElementById("circle");
                 svgnode.insertBefore(highlight, document.getElementsByTagName('circle')[3]);
 
-                //highlight gene name as well
+                //highlight gene name and move to outside
                 var highlightGene = document.getElementById(newGene);
+                var textPos = (newPos[0]+newPos[1])/2;
+                var textAngle = textPos/16569*2*Math.PI-Math.PI/2;  //text angle in radians; add Math.PI/2 becasue by default 0 is postive x-axis but we want it to be positive y-axis
+                var textX = 1.03 * radius * Math.cos(textAngle) + cx;
+                var textY = 1.03 * radius * Math.sin(textAngle) + cy;
+                highlightGene.setAttribute("transform","rotate("+0+","+textX+","+textY+")");
+                highlightGene.setAttribute("x",textX);
+                highlightGene.setAttribute("y",textY);
+
+                textAngle = textAngle + Math.PI/2;  //convert back to 0 as positive x-axis
+                if(textAngle<=Math.PI/4||textAngle>=Math.PI*7/4){
+                    highlightGene.setAttribute("alignment-baseline","baseline");
+                } else if (textAngle<=Math.PI*5/4&&textAngle>=Math.PI*3/4){
+                    highlightGene.setAttribute("alignment-baseline","hanging");
+                } else {
+                    highlightGene.setAttribute("alignment-baseline","central");
+                }
+
+                if(highlightGene.getAttribute('text-anchor')=="end"){
+                    highlightGene.setAttribute("text-anchor","start");
+                } else {
+                    highlightGene.setAttribute('text-anchor','end');
+                }                
                 highlightGene.setAttribute('font-weight','bold');
                 highlightGene.setAttribute('fill','red');
-                highlightGene.setAttribute('font-size','9');
+                highlightGene.setAttribute('font-size','15');
             }
         }
         
@@ -328,71 +351,72 @@ class GeneSVG extends React.Component{
             
             var varPos = this.props.variant.split("-")[1];
 
-            if(varPos<=16569){
-                
-                //add line to highlight variant position
-                var angle = varPos/16569*2*Math.PI-Math.PI/2;   //angles in radians
-                var pt1x = radius * Math.cos(angle) + cx;
-                var pt1y = radius * Math.sin(angle) + cy;
-                var pt2x = (radius-dist-50) * Math.cos(angle) + cx;
-                var pt2y = (radius-dist-50) * Math.sin(angle) + cy;
+        
+            //add line to highlight variant position
+            var angle = varPos/16569*2*Math.PI-Math.PI/2;   //angles in radians
+            var pt1x = (radius+10) * Math.cos(angle) + cx;
+            var pt1y = (radius+10) * Math.sin(angle) + cy;
+            var pt2x = innerRadius * Math.cos(angle) + cx;
+            var pt2y = innerRadius * Math.sin(angle) + cy;
 
-                var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-                line.setAttribute("x1",pt1x);
-                line.setAttribute("y1",pt1y);
-                line.setAttribute("x2",pt2x);
-                line.setAttribute("y2",pt2y);
-                line.setAttribute("stroke","crimson");
-                line.setAttribute("stroke-width","3");
-                line.setAttribute("id","highlight-var");
-                var svgnode = document.getElementById("circle"); 
-                svgnode.insertBefore(line, svgnode.childNodes[svgnode.childNodes.length-1]);
+            var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+            line.setAttribute("x1",pt1x);
+            line.setAttribute("y1",pt1y);
+            line.setAttribute("x2",pt2x);
+            line.setAttribute("y2",pt2y);
+            line.setAttribute("stroke","crimson");
+            line.setAttribute("stroke-width","1.5");
+            line.setAttribute("id","highlight-var");
+            var svgnode = document.getElementById("circle"); 
+            svgnode.insertBefore(line, svgnode.childNodes[svgnode.childNodes.length-1]);
 
-                //find gene that matches the variant is in
-                var matchedGenes = [];
-                for (const [key, value] of Object.entries(dict)) {
-                    if(varPos>=value[0]&&varPos<=value[1]){
-                        matchedGenes.push(key);
-                    }
+            //find gene that matches the variant is in
+            var matchedGenes = [];
+            for (const [key, value] of Object.entries(dict)) {
+                if(varPos>=value[0]&&varPos<=value[1]){
+                    matchedGenes.push(key);
                 }
-
-                //add text label for variant
-                var textNode = document.createElementNS('http://www.w3.org/2000/svg','text');
-                var node1 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
-                var text = document.createTextNode('Variant of interest: '+varPos+" ");
-                node1.appendChild(text);
-
-                //gene label
-                var node2 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
-                var geneText = document.createTextNode('Gene: '+matchedGenes);
-                node2.appendChild(geneText);
-                textNode.appendChild(node1);
-                textNode.appendChild(node2);
-                if(varPos>16569/2){
-                    textNode.setAttribute('text-anchor','start');
-                    textNode.setAttribute('x',pt2x+5);
-                    textNode.setAttribute('y',pt2y);
-                } else {
-                    textNode.setAttribute('x',pt2x-5);
-                    textNode.setAttribute('y',pt2y);
-                    textNode.setAttribute("text-anchor","end");
-                }
-                textNode.setAttribute("fill","crimson");
-                textNode.setAttribute("font-size","14");
-                textNode.setAttribute("alignment-baseline","central");
-                textNode.setAttribute("id","varLabel");
-                textNode.setAttribute("font-weight","bold");
-                svgnode.insertBefore(textNode, svgnode.childNodes[svgnode.childNodes.length-1]);
             }
+
+            //add text label for variant
+            var textNode = document.createElementNS('http://www.w3.org/2000/svg','text');
+            var node1 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+            var text = document.createTextNode(this.props.variant);
+            node1.appendChild(text);
+            textNode.appendChild(node1);
+            // gene label
+            // var node2 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+            // var geneText = document.createTextNode('Gene: '+matchedGenes);
+            // node2.appendChild(geneText);
+            // textNode.appendChild(node2);
+            
+            pt1x = (radius+15) * Math.cos(angle) + cx;
+            pt1y = (radius+15) * Math.sin(angle) + cy;
+            textNode.setAttribute('x',pt1x);
+            textNode.setAttribute('y',pt1y);
+
+            if(varPos>16569/2){
+                textNode.setAttribute('text-anchor','end');
+            } else {
+                textNode.setAttribute("text-anchor","start");
+            }
+
+            textNode.setAttribute("fill","crimson");
+            textNode.setAttribute("font-size","15");
+            textNode.setAttribute("alignment-baseline","central");
+            textNode.setAttribute("id","varLabel");
+            textNode.setAttribute("font-weight","bold");
+            svgnode.insertBefore(textNode, svgnode.childNodes[svgnode.childNodes.length-1]);
+
         }
 
     }
 
     render() {
         if((this.props.variant&&this.props.variant.startsWith("MT-"))|(this.props.gene&&this.props.gene.startsWith("MT-"))){   
-            return(
+           return(
                 <div>
-                    <svg id="circle" width="400" height="400">
+                    <svg id="circle" width="510" height="450">
                         <circle cx={this.state.cx} cy={this.state.cy} r={this.state.radius} stroke="saddlebrown" strokeWidth="1" fill="transparent" />
                         <circle cx={this.state.cx} cy={this.state.cy} r={this.state.radius-10} stroke="none" fill="#ffffff90" filter="url(#blurMe)" />
                         <circle cx={this.state.cx} cy={this.state.cy} r={this.state.radius-20} stroke="none" fill="#ffffffd0" filter="url(#blurMe)" />

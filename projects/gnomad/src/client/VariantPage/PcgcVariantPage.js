@@ -105,7 +105,7 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
           <VariantDetailsContainer>
             <ResponsiveSection>
               <ScrollWrapper>
-                <GnomadVariantOccurrenceTable variant={variant} />
+                {/*<GnomadVariantOccurrenceTable variant={variant} />*/}
               </ScrollWrapper>
 
               {/*variant.colocatedVariants.length > 0 && (
@@ -151,7 +151,7 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
                 sortedTranscriptConsequences={variant.sortedTranscriptConsequences}
               />
             </Section>
-            {<ResponsiveSection>
+            {/*<ResponsiveSection>
               <h2>Population Frequencies</h2>
               <ScrollWrapper>
                 <PcgcPopulationsTable
@@ -160,7 +160,7 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
                   // showHemizygotes={variant.chrom === 'X' || variant.chrom === 'Y'}
                 />
               </ScrollWrapper>
-            </ResponsiveSection>}
+            </ResponsiveSection>*/}
             {/*<ResponsiveSection>
               <h2>Age Distribution</h2>
               {datasetId !== 'gnomad_r2_1' && (
