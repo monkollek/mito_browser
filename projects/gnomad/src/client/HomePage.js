@@ -39,23 +39,20 @@ export default () => (
     <DocumentTitle />
     <HeadingContainer>
       {/* <GnomadHeading width="60%" /> */}
-      <img src="http://www.leklab.org/wp-content/uploads/2019/07/b2b_logo.png" width="50%" height="50%"></img>
-      <SubHeading>Pediatric Cardiac Genomics Consortium (PCGC)</SubHeading>
+      <img src="http://www.leklab.org/wp-content/uploads/2019/08/decepticons.jpg" width="25%" height="25%"></img>
+      <SubHeading>gnomAD mito beta browser</SubHeading>
       <Searchbox width="100%" />
       <p>
         Examples - Gene:{' '}
-        <Link preserveSelectedDataset={false} to="/gene/SOX12">
-          SOX12
+        <Link preserveSelectedDataset={false} to="/gene/MT-CO1">
+          MT-CO1
         </Link>
         , Variant:{' '}
-        <Link preserveSelectedDataset={false} to="/variant/1-55529215-C-A">
-          1-55529215-C-A
+        <Link preserveSelectedDataset={false} to="/variant/MT-5951-A-G">
+          MT-5951-A-G
         </Link>
       </p>
     </HeadingContainer>
 
-    <p>
-    PCGC place holder text
-    </p>
   </HomePage>
 )
