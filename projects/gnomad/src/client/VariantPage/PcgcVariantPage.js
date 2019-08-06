@@ -10,8 +10,9 @@ import Link from '../Link'
 import StatusMessage from '../StatusMessage'
 import { ReferenceList } from './ReferenceList'
 
-
 import { PcgcPopulationsTable } from './PcgcPopulationsTable'
+
+import TrnaSVG from './TrnaSVG'
 
 /*
 import GnomadAgeDistribution from './GnomadAgeDistribution'
@@ -135,8 +136,9 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
               )*/}
             </ResponsiveSection>
             <ResponsiveSection>
-              <h2>References</h2>
-              <ReferenceList variant={variant} />
+              {/*<h2>References</h2>
+              <ReferenceList variant={variant} />*/}
+              <TrnaSVG variant={variant.pos} gene={variant.sortedTranscriptConsequences[0].gene_symbol} />
               {/*<h2>Report</h2>
               <VariantFeedback datasetId={datasetId} variantId={variantId} />*/}
             </ResponsiveSection>
