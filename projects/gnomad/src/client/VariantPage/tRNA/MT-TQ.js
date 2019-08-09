@@ -4,21 +4,29 @@ class Mttq extends React.Component{
     
     componentDidMount(){
         //set styles
-        var allLines = document.getElementsByTagName('line');
+        var allLines = document.getElementById('svg-container').getElementsByTagName('line');
         for(var t of allLines){
             t.setAttribute('stroke',"#2975d9");
             t.setAttribute('stroke-width',"1");
             t.setAttribute('stroke-linecap',"round");
+            var newY1 = parseFloat(t.getAttribute('y1'))+47;
+            var newY2 = parseFloat(t.getAttribute('y2'))+47;
+            t.setAttribute('y1',newY1);
+            t.setAttribute('y2',newY2);
         }
-        var allCircles = document.getElementsByTagName('circle');
+        var allCircles = document.getElementById('svg-container').getElementsByTagName('circle');
         for(var t of allCircles){
             t.setAttribute('fill', '#b30000');
+            var newY = parseFloat(t.getAttribute('cy'))+47;
+            t.setAttribute('cy',newY);
         }
-        var allText = document.getElementsByTagName('text');
+        var allText = document.getElementById('svg-container').getElementsByTagName('text');
         for(var t of allText){
             t.setAttribute('font-size', '12');
             t.setAttribute('fill', '#000000');
             t.setAttribute('font-family', 'monospace');
+            var newY = parseFloat(t.getAttribute('y'))+47;
+            t.setAttribute('y',newY);
         }
         
         //highlight variant
@@ -47,16 +55,62 @@ class Mttq extends React.Component{
             }
         }
 
+        //add text legend
+        var geneName = document.createTextNode(this.props.gene);
+        var variantId = document.createTextNode(this.props.variantId);
+        var conseq = document.createTextNode(this.props.conseq);
+
+        var geneNameNode = document.createElementNS('http://www.w3.org/2000/svg','text');
+        var variantIdNode = document.createElementNS('http://www.w3.org/2000/svg','text');
+        var conseqNode = document.createElementNS('http://www.w3.org/2000/svg','text');
+
+        geneNameNode.appendChild(geneName);
+        variantIdNode.appendChild(variantId);
+        conseqNode.appendChild(conseq);
+
+        var textX = 55;
+        var textY = 59;
+
+        geneNameNode.setAttribute("x",textX);
+        geneNameNode.setAttribute("y",textY);
+        geneNameNode.setAttribute("text-anchor","start");
+        geneNameNode.setAttribute("font-family","Roboto, sans-serif");
+        geneNameNode.setAttribute("font-size","14");
+
+        variantIdNode.setAttribute("x",textX);
+        variantIdNode.setAttribute("y",textY+20);
+        variantIdNode.setAttribute("text-anchor","start");
+        variantIdNode.setAttribute("font-family","Roboto, sans-serif");
+        variantIdNode.setAttribute("font-size","14");
+
+        conseqNode.setAttribute("x",textX);
+        conseqNode.setAttribute("y",textY+40);
+        conseqNode.setAttribute("text-anchor","start");
+        conseqNode.setAttribute("font-family","Roboto, sans-serif");
+        conseqNode.setAttribute("font-size","14");
+
+        var svgnode = document.getElementById("svg-container"); 
+        svgnode.appendChild(geneNameNode);
+        svgnode.appendChild(variantIdNode);
+        svgnode.appendChild(conseqNode);
+
+        var legend = document.createTextNode("tRNA Secondary Structure");
+        var legendNode = document.createElementNS('http://www.w3.org/2000/svg','text');
+        legendNode.appendChild(legend);
+        legendNode.setAttribute("x","55");
+        legendNode.setAttribute("y","33");
+        legendNode.setAttribute("font-family","Roboto, sans-serif");
+        legendNode.setAttribute("font-size","15");
+        legendNode.setAttribute("font-weight","bold");
+        svgnode.appendChild(legendNode);
+
     }
 
     render() {
         
         return(
-            <svg id="svg-container" height="350" width="350" xmlns="http://www.w3.org/2000/svg">
+            <svg id="svg-container" height="390" width="350" xmlns="http://www.w3.org/2000/svg">
                 
-                <text x="205" y="10"> A<title></title> </text>
-                <text x="205" y="25"> C<title></title> </text>
-                <text x="205" y="40"> C<title></title> </text>
                 <text x="205" y="55"> G<title>4329</title> </text>
                 <text x="205" y="70"> A<title>4330</title> </text>
                 <text x="205" y="85"> T<title>4331</title> </text>

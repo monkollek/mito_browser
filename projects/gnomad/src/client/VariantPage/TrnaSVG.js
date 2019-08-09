@@ -52,9 +52,11 @@ class TrnaSVG extends React.Component{
     render() {
         var Gene = this.props.gene;
         var variant = this.props.variant;
+        var variantId = this.props.variantId;
+        var conseq = this.props.conseq;
         if(components[Gene]){
             return(
-                React.createElement(components[Gene],{variant:variant})
+                React.createElement(components[Gene],{variant:variant, gene:Gene, variantId:variantId, conseq:conseq})
             )
         } else {
              return null

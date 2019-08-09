@@ -13,6 +13,8 @@ import { ReferenceList } from './ReferenceList'
 import { PcgcPopulationsTable } from './PcgcPopulationsTable'
 
 import TrnaSVG from './TrnaSVG'
+import RrnaSVG from './RrnaSVG'
+import TreeSVG from './TreeSVG'
 
 /*
 import GnomadAgeDistribution from './GnomadAgeDistribution'
@@ -44,6 +46,7 @@ const VariantDetailsContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+
 `
 
 const ScrollWrapper = styled.div`
@@ -101,7 +104,8 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
         const numGenes = new Set(geneIds).size
         console.log("Ih here 2")
         console.log(variant)
-
+        console.log(variant.haplotypes)
+       	        
         return (
           <VariantDetailsContainer>
             <ResponsiveSection>
@@ -138,7 +142,8 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
             <ResponsiveSection>
               {/*<h2>References</h2>
               <ReferenceList variant={variant} />*/}
-              <TrnaSVG variant={variant.pos} gene={variant.sortedTranscriptConsequences[0].gene_symbol} />
+              <TrnaSVG variant={variant.pos} gene={variant.sortedTranscriptConsequences[0].gene_symbol} conseq={variant.sortedTranscriptConsequences[0].hgvs} variantId={variantId}/>
+              <RrnaSVG variant={variant.pos} gene={variant.sortedTranscriptConsequences[0].gene_symbol} />
               {/*<h2>Report</h2>
               <VariantFeedback datasetId={datasetId} variantId={variantId} />*/}
             </ResponsiveSection>
@@ -189,6 +194,9 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
                 showHemizygotes={variant.chrom === 'X' || variant.chrom === 'Y'}
               />
             </Section>*/}
+            <Section>
+              <TreeSVG hgroup={variant.haplotypes} />
+            </Section>
           </VariantDetailsContainer>
         )
       }}
