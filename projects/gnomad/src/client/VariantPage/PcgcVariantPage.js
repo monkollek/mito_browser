@@ -159,7 +159,7 @@ const PcgcVariantPage = ({ datasetId, variantId }) => (
               />
             </Section>
             <ResponsiveSection>
-              <h2>Haplotype Frequencies</h2>
+              <h2>Haplogroup Frequencies</h2>
               <ScrollWrapper>
                 <PcgcPopulationsTable
                   exomePopulations={variant ? variant.haplotypes : []}

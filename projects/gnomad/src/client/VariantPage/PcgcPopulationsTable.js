@@ -43,9 +43,17 @@ const ControlSection = styled.div`
   }
 `
 
+const H_haplotypes = ["H+","H1","H2","H3","H4","H5","H6","H7","H8","H9"]
+
 const combinePopulations = populations => {
   const combined = Object.values(
     populations.reduce((acc, pop) => {
+
+      // simple way to combine for now
+      if(H_haplotypes.indexOf(pop.id) >= 0){
+        pop.id = "H"
+      }
+
       if (!acc[pop.id]) {
         acc[pop.id] = {
           id: pop.id,

@@ -167,7 +167,7 @@ export class PopulationsTable extends Component {
       <Table>
         <thead>
           <tr>
-            {this.renderColumnHeader('name', 'Population', 2)}
+            {this.renderColumnHeader('name', 'Haplogroup', 2)}
             {this.renderColumnHeader('ac', columnLabels.ac || 'Allele Count')}
             {this.renderColumnHeader('an', columnLabels.an || 'Allele Number')}
             {showHomozygotes && this.renderColumnHeader('ac_hom', 'Number of Homozygotes')}
