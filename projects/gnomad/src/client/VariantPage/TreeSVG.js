@@ -27,10 +27,14 @@ class TreeSVG extends React.Component{
 
         //highlight
         var hgroup = this.props.hgroup;
+        const H_haplotypes = ["H+","H1","H2","H3","H4","H5","H6","H7","H8","H9"];
         var max = 2;    //max of stroke width; equivalent to allele freq = 1
         var min = 1.5;    //min of stroke width; equivalent to allele freq = 0
         for (var h of hgroup) {
             if(h.ac==0) {continue;}
+            if(H_haplotypes.indexOf(h.id)>=0){
+                h.id = "H";
+            }
             var allHighlight = document.getElementsByClassName(h.id);
             for (var a of allHighlight){
                 var prevStrokeWidth = parseFloat(a.getAttribute('stroke-width'));
