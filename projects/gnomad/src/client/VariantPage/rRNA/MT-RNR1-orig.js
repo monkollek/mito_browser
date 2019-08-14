@@ -5,7 +5,7 @@ class Rrna1Orig extends React.Component{
     componentDidMount(){
     
         //add styling
-        var multi = 0.3
+        var multi = 0.3 //multiplier for reducing the size of image
         var allLines = document.getElementById('svg-container').getElementsByTagName('line');
         for(var t of allLines){
             if(t.getAttribute('stroke-width')==1){

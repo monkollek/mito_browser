@@ -22,6 +22,7 @@ import Mttn from './tRNA/MT-TN';
 import Mttm from './tRNA/MT-TM';
 import Mttr from './tRNA/MT-TR';
 
+//match each gene name to the respective component name to know which component should be rendered when a gene name is received
 const components = {
     'MT-TA': Mtta,
     'MT-TT': Mttt,
@@ -50,10 +51,13 @@ const components = {
 class TrnaSVG extends React.Component{
 
     render() {
+        //receive the props passed down
         var Gene = this.props.gene;
         var variant = this.props.variant;
         var variantId = this.props.variantId;
         var conseq = this.props.conseq;
+
+        //if Gene is a tRNA gene, render the component and pass down props
         if(components[Gene]){
             return(
                 React.createElement(components[Gene],{variant:variant, gene:Gene, variantId:variantId, conseq:conseq})

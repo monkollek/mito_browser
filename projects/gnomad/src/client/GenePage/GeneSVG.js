@@ -1,5 +1,6 @@
 import React from 'react';
 
+//match each gene to their respective regions
 var dict = {
     'MT-TF': [577,647],
     'MT-RNR1': [648,1601],
@@ -43,14 +44,16 @@ var dict = {
 
 class GeneSVG extends React.Component{
 
+    //store dimensions as state; changing these numbers will change the entire svg
     state = {
         cx: 260,            //x coordinate of circle center
         cy: 220,            //y coordinate of circle center
         radius: 155,        //radius of outer circle
         innerRadius: 135,   //radius of inner circle
-        dist: 20            //distance between two circles
+        dist: 20            //distance between two circles (difference in radius)
     }
     
+    //a function that determines cartesian coordinates based on angle; will be used to determine how to draw the sector
     polarToCartesian(centerX, centerY, radius, angleInDegrees) {
         var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
         return {
@@ -60,14 +63,15 @@ class GeneSVG extends React.Component{
     }
 
     componentDidMount(){
+        //retrieve information stored in state
         var radius = this.state.radius;
         var dist = this.state.dist;
         var cx = this.state.cx;
         var cy = this.state.cy;
         var innerRadius = this.state.innerRadius;
 
-        //if either prop exists and starts with MT-, create base circle
-        if((this.props.variant&&this.props.variant.startsWith("MT-"))|(this.props.gene&&this.props.gene.startsWith("MT-"))){
+        //if a gene has been passed down and starts with "MT-", create svg without highlighting
+        if(this.props.gene&&this.props.gene.startsWith("MT-")){
             
             /**********
              * Lines
@@ -101,6 +105,7 @@ class GeneSVG extends React.Component{
              * Each sector
             ***************/
 
+            //store parameters in opts
             var opts = {
                 cx: cx,             
                 cy: cy,             
@@ -118,16 +123,21 @@ class GeneSVG extends React.Component{
                 noncoding: "lightpink"
             }
 
-            //mRNA overlap
+            //mRNA overlapping areas
+            //from 8th to 9th, 31st to 32nd, and 38th to 39th line in the circle (0-based numbering)
             var overlap = [8,9,31,32,38,39];
             for (var i = 0; i<overlap.length/2; i++){
+                //calculate the start angle and end angle in degrees;
+                //added Math.PI/2 here because by default 0 rad is positive x-axis but the angles array had 0 as positive y axis
                 opts.start_angle = (angles[overlap[i*2]]+Math.PI/2)*180/Math.PI;
                 opts.end_angle = (angles[overlap[i*2+1]]+Math.PI/2)*180/Math.PI;
 
+                //calculate start and end coordinates
                 var start = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.end_angle),
                     end = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.start_angle),
                     largeArcFlag = opts.end_angle - opts.start_angle <= 180 ? "0" : "1";
 
+                //set path
                 var d = [
                     "M", start.x, start.y,
                     "A", opts.radius, opts.radius, 0, largeArcFlag, 0, end.x, end.y,
@@ -142,16 +152,20 @@ class GeneSVG extends React.Component{
                 svgnode.insertBefore(over, svgnode.childNodes[0]);
             }  
 
-            //tRNA
+            //tRNA coding genes
+            //from 0th to 1st, 2nd to 3rd line ... in the circle (0-based number)
             var tRnaAngles = [0,1,2,3,4,6,7,12,13,18,19,22,23,26,27,29,34,35,36,37,40,43,45,47,48,51];
             for (var i = 0; i<tRnaAngles.length/2; i++){
+                //calculate start and end angle of sector in degrees
                 opts.start_angle = (angles[tRnaAngles[i*2]]+Math.PI/2)*180/Math.PI;
                 opts.end_angle = (angles[tRnaAngles[i*2+1]]+Math.PI/2)*180/Math.PI;
                 
+                //calculate start and end coordinates
                 var start = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.end_angle),
                     end = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.start_angle),
                     largeArcFlag = opts.end_angle - opts.start_angle <= 180 ? "0" : "1";
                 
+                //set path
                 var d = [
                     "M", start.x, start.y,
                     "A", opts.radius, opts.radius, 0, largeArcFlag, 0, end.x, end.y,
@@ -166,16 +180,19 @@ class GeneSVG extends React.Component{
                 svgnode.insertBefore(sector, svgnode.childNodes[0]);
             }
 
-            //mRNA
+            //mRNA coding genes
             var mRnaAngles = [5,18,19,48];
             for (var i = 0; i<mRnaAngles.length/2; i++){
+                //calculate start and end angle of sector in degrees
                 opts.start_angle = (angles[mRnaAngles[i*2]]+Math.PI/2)*180/Math.PI;
                 opts.end_angle = (angles[mRnaAngles[i*2+1]]+Math.PI/2)*180/Math.PI;
 
+                //start and end coordinates
                 var start = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.end_angle),
                     end = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.start_angle),
                     largeArcFlag = opts.end_angle - opts.start_angle <= 180 ? "0" : "1";
 
+                //set path
                 var d = [
                     "M", start.x, start.y,
                     "A", opts.radius, opts.radius, 0, largeArcFlag, 0, end.x, end.y,
@@ -190,14 +207,17 @@ class GeneSVG extends React.Component{
                 svgnode.insertBefore(sector, svgnode.childNodes[0]);
             }  
             
-            //rRNA
+            //rRNA coding genes; the two genes are created as one sector
+            //calculate start and end angle of sector in degrees
             opts.start_angle = (angles[1]+Math.PI/2)*180/Math.PI;
             opts.end_angle = (angles[4]+Math.PI/2)*180/Math.PI;
 
+            //calculate start and end coordinates
             var start = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.end_angle),
                 end = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.start_angle),
                 largeArcFlag = opts.end_angle - opts.start_angle <= 180 ? "0" : "1";
 
+            //set path
             var d = [
                 "M", start.x, start.y,
                 "A", opts.radius, opts.radius, 0, largeArcFlag, 0, end.x, end.y,
@@ -211,16 +231,19 @@ class GeneSVG extends React.Component{
             var svgnode = document.getElementById("circle");
             svgnode.insertBefore(sector, svgnode.childNodes[0]);
 
-            //noncoding
+            //noncoding regions
             var noncode = [51,0,18,19];
             for (var i = 0; i<noncode.length/2; i++){
+                //calculate start and end angle of sector in degrees
                 opts.start_angle = (angles[noncode[i*2]]+Math.PI/2)*180/Math.PI;
                 opts.end_angle = (angles[noncode[i*2+1]]+Math.PI/2)*180/Math.PI;
 
+                //find start and end coordinates
                 var start = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.end_angle),
                     end = this.polarToCartesian(opts.cx, opts.cy, opts.radius, opts.start_angle),
                     largeArcFlag = opts.end_angle - opts.start_angle <= 180 ? "0" : "1";
 
+                //set path
                 var d = [
                     "M", start.x, start.y,
                     "A", opts.radius, opts.radius, 0, largeArcFlag, 0, end.x, end.y,
@@ -239,8 +262,10 @@ class GeneSVG extends React.Component{
              * Text Labels
              **************/
             
+            //loop through each gene and its respective region
             for (const [key, value] of Object.entries(dict)) {
 
+                //genomic coordinate of the label (in the middle of a gene); then calculate x and y of the label
                 var textPos = (value[0]+value[1])/2;
                 var textAngle = textPos/16569*2*Math.PI-Math.PI/2;  //text angle in radians
                 var textX = 0.98 * innerRadius * Math.cos(textAngle) + cx;
@@ -252,6 +277,7 @@ class GeneSVG extends React.Component{
 
                 labelNode.setAttribute("x",textX);
                 labelNode.setAttribute("y",textY);
+                //change anchoring and angle of label based on its position (left or right side of the circle)
                 if(textAngle>Math.PI/2){
                     textAngle = textAngle+Math.PI;
                     labelNode.setAttribute("text-anchor","start");
@@ -284,7 +310,7 @@ class GeneSVG extends React.Component{
 
         }
 
-        //if gene page
+        //if on gene page, a gene prop is passed
         if(this.props.gene&&this.props.gene.startsWith("MT-")){            
 
             var newGene = this.props.gene;
@@ -315,7 +341,7 @@ class GeneSVG extends React.Component{
                 var svgnode = document.getElementById("circle");
                 svgnode.insertBefore(highlight, document.getElementsByTagName('circle')[3]);
 
-                //highlight gene name and move to outside
+                //highlight gene name and move to outside the circle
                 var highlightGene = document.getElementById(newGene);
                 var textPos = (newPos[0]+newPos[1])/2;
                 var textAngle = textPos/16569*2*Math.PI-Math.PI/2;  //text angle in radians; add Math.PI/2 becasue by default 0 is postive x-axis but we want it to be positive y-axis
@@ -325,7 +351,8 @@ class GeneSVG extends React.Component{
                 highlightGene.setAttribute("x",textX);
                 highlightGene.setAttribute("y",textY);
 
-                textAngle = textAngle + Math.PI/2;  //convert back to 0 as positive x-axis
+                textAngle = textAngle + Math.PI/2;  //convert to 0 as positive x-axis
+                //change text alignment based on its position with respect to the circle
                 if(textAngle<=Math.PI/4||textAngle>=Math.PI*7/4){
                     highlightGene.setAttribute("alignment-baseline","baseline");
                 } else if (textAngle<=Math.PI*5/4&&textAngle>=Math.PI*3/4){
@@ -345,75 +372,11 @@ class GeneSVG extends React.Component{
             }
         }
         
-
-        //if variant page
-        if(this.props.variant&&this.props.variant.startsWith("MT-")){
-            
-            var varPos = this.props.variant.split("-")[1];
-
-        
-            //add line to highlight variant position
-            var angle = varPos/16569*2*Math.PI-Math.PI/2;   //angles in radians
-            var pt1x = (radius+10) * Math.cos(angle) + cx;
-            var pt1y = (radius+10) * Math.sin(angle) + cy;
-            var pt2x = innerRadius * Math.cos(angle) + cx;
-            var pt2y = innerRadius * Math.sin(angle) + cy;
-
-            var line = document.createElementNS('http://www.w3.org/2000/svg','line');
-            line.setAttribute("x1",pt1x);
-            line.setAttribute("y1",pt1y);
-            line.setAttribute("x2",pt2x);
-            line.setAttribute("y2",pt2y);
-            line.setAttribute("stroke","crimson");
-            line.setAttribute("stroke-width","1.5");
-            line.setAttribute("id","highlight-var");
-            var svgnode = document.getElementById("circle"); 
-            svgnode.insertBefore(line, svgnode.childNodes[svgnode.childNodes.length-1]);
-
-            //find gene that matches the variant is in
-            var matchedGenes = [];
-            for (const [key, value] of Object.entries(dict)) {
-                if(varPos>=value[0]&&varPos<=value[1]){
-                    matchedGenes.push(key);
-                }
-            }
-
-            //add text label for variant
-            var textNode = document.createElementNS('http://www.w3.org/2000/svg','text');
-            var node1 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
-            var text = document.createTextNode(this.props.variant);
-            node1.appendChild(text);
-            textNode.appendChild(node1);
-            // gene label
-            // var node2 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
-            // var geneText = document.createTextNode('Gene: '+matchedGenes);
-            // node2.appendChild(geneText);
-            // textNode.appendChild(node2);
-            
-            pt1x = (radius+15) * Math.cos(angle) + cx;
-            pt1y = (radius+15) * Math.sin(angle) + cy;
-            textNode.setAttribute('x',pt1x);
-            textNode.setAttribute('y',pt1y);
-
-            if(varPos>16569/2){
-                textNode.setAttribute('text-anchor','end');
-            } else {
-                textNode.setAttribute("text-anchor","start");
-            }
-
-            textNode.setAttribute("fill","crimson");
-            textNode.setAttribute("font-size","15");
-            textNode.setAttribute("alignment-baseline","central");
-            textNode.setAttribute("id","varLabel");
-            textNode.setAttribute("font-weight","bold");
-            svgnode.insertBefore(textNode, svgnode.childNodes[svgnode.childNodes.length-1]);
-
-        }
-
     }
 
     render() {
-        if((this.props.variant&&this.props.variant.startsWith("MT-"))|(this.props.gene&&this.props.gene.startsWith("MT-"))){   
+        //if the gene is mitochondrial
+        if(this.props.gene&&this.props.gene.startsWith("MT-")){   
            return(
                 <div>
                     <svg id="circle" width="510" height="450">

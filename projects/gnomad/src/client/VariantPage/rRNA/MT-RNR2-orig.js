@@ -5,7 +5,7 @@ class Rrna2Orig extends React.Component{
     componentDidMount(){
     
         //add styling
-        var multi = 0.145
+        var multi = 0.145 //multiplier for reducing the size of image
         var allLines = document.getElementById('svg-container').getElementsByTagName('line');
         for(var t of allLines){
             t.setAttribute('stroke',"#000000");

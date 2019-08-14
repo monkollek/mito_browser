@@ -4,7 +4,7 @@ class TreeSVG extends React.Component{
 
     componentDidMount(){
 
-        //set styles
+        //set styles for svg
         var allLines = document.getElementById('haplogroup-tree').getElementsByTagName('line');
         for(var t of allLines){
             t.setAttribute('stroke',"black");
@@ -25,16 +25,18 @@ class TreeSVG extends React.Component{
             t.setAttribute('fill', 'white');
         }
 
-        //highlight
+        //highlight branch
         var hgroup = this.props.hgroup;
         const H_haplotypes = ["H+","H1","H2","H3","H4","H5","H6","H7","H8","H9"];
         var max = 2;    //max of stroke width; equivalent to allele freq = 1
         var min = 1.5;    //min of stroke width; equivalent to allele freq = 0
         for (var h of hgroup) {
             if(h.ac==0) {continue;}
+            //aggregate all H haplotypes
             if(H_haplotypes.indexOf(h.id)>=0){
                 h.id = "H";
             }
+            //get all svg elements to highlight based on class name
             var allHighlight = document.getElementsByClassName(h.id);
             for (var a of allHighlight){
                 var prevStrokeWidth = parseFloat(a.getAttribute('stroke-width'));
@@ -53,7 +55,7 @@ class TreeSVG extends React.Component{
             }
         }
 
-        //add text legend
+        //add title
         var text = document.createTextNode("Haplogroup Tree");
         var textNode = document.createElementNS('http://www.w3.org/2000/svg','text');
         textNode.appendChild(text);
@@ -63,8 +65,6 @@ class TreeSVG extends React.Component{
         textNode.setAttribute("font-size","18");
         textNode.setAttribute("font-weight","bold");
         document.getElementById('haplogroup-tree').appendChild(textNode);
-
-        
 
     }
 
@@ -233,8 +233,7 @@ class TreeSVG extends React.Component{
                 <text x="955" y="385" className="U">U</text>
                 <line x1="970" y1="315" x2="985" y2="315" className="side K"></line>
                 <line x1="985" y1="315" x2="985" y2="365" className="down K"></line>
-                <text x="985" y="385" className="K">K</text>
-                
+                <text x="985" y="385" className="K">K</text>         
             </svg>
         )
     }
